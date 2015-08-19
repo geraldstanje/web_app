@@ -8,7 +8,7 @@ build() {
 
 run() {
   # Run a docker
-  docker run -p 5432:5432 -t outyet --name postgresql_example_name -v /opt/postgresql/data:/var/lib/postgresql postgresql:outyet
+  docker run -p 5432:5432 -t outyet --name postgresql_example_name -v /var/lib/postgresql:var/lib/postgresql outyet
 }
 
 info() {
