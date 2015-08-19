@@ -1,14 +1,14 @@
-## Install Postgres DB:
+# Install Postgres DB:
 
-# Build docker image
+## Build docker image
 $ ./docker build
 
-# Run docker image
+## Run docker image
 $ ./docker run
 
-# Get boot2docker IP
+## Get boot2docker IP
 $ boot2docker ip
  The VM's Host only interface IP address is: 192.168.59.103
 
-# Start PostgreSQL interactive terminal
+## Start PostgreSQL interactive terminal
 $ psql -h localhost -p 5432 -d docker -U admin --password
