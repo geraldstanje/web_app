@@ -7,7 +7,7 @@ $ ./docker build
 $ ./docker run
 
 ## Get boot2docker IP
-$ boot2docker ip
+$ boot2docker ip <br />
  The VM's Host only interface IP address is: 192.168.59.103
 
 ## Start PostgreSQL interactive terminal
