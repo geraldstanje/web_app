@@ -22,11 +22,11 @@ stopall() {
   docker stop $(docker ps -a -q)
 }
 
-clean() {
+cleanall() {
   # Remove all containers
   docker rm $(docker ps -a -q)
   # Romove all images
   #docker rmi $(docker images -q)
 }
 
-case $1 in build|run|info|stopall|clean) "$1" ;; *) printf >&2 '%s: unknown command\n' "$1"; exit 1;; esac
+case $1 in build|run|info|stopall|cleanall) "$1" ;; *) printf >&2 '%s: unknown command\n' "$1"; exit 1;; esac
