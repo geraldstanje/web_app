@@ -9,7 +9,8 @@ build() {
 run() {
   # Run a docker
   #docker run -p 5432:5432 -t outyet --name postgresql_example_name -v /var/lib/postgresql:var/lib/postgresql outyet
-  docker run -p 5432:5432 --name postgresql_example_name -v /var/lib/postgresql:var/lib/postgresql outyet
+  # -v ... it mapping filesystem from container to docker host filesystem
+  docker run -p 5432:5432 -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=root --name postgresql_example_name -v "/var/lib/postgresql:/var/lib/postgresql" outyet
 }
 
 info() {
