@@ -8,7 +8,7 @@ build() {
 
 run() {
   # Run a docker
-  docker run -p 8080:8080 -t outyet -name webserver
+  docker run -p 8080:8080 -t outyet --name webserver
 }
 
 info() {
