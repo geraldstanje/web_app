@@ -9,7 +9,7 @@ import (
 
 func main() {
   fmt.Println("[database] Connecting to database...")
-  db, err := sql.Open("postgres", "postgres://admin:changeme@192.168.59.103:5432/admin?sslmode=disable") //?sslmode=verify-full")
+  db, err := sql.Open("postgres", "postgres://admin:changeme@192.168.59.103:5432/admintest?sslmode=disable") //?sslmode=verify-full")
   if err != nil {
     log.Fatal(err)
   }
