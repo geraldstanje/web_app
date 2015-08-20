@@ -8,7 +8,7 @@ build() {
 
 run() {
   # Run a docker
-  docker run -p 8080:8080 -t outyet
+  docker run -p 8080:8080 -t outyet -name webserver
 }
 
 info() {
@@ -17,9 +17,19 @@ info() {
   # docker inspect hash
 }
 
+stop() {
+  # docker stop with name
+  docker stop webserver
+}
+
 stopall() {
   # docker stop hash
   docker stop $(docker ps -a -q)
+}
+
+clean() {
+  # Remove docker with name
+  docker rm webserver
 }
 
 cleanall() {
@@ -29,4 +39,4 @@ cleanall() {
   #docker rmi $(docker images -q)
 }
 
-case $1 in build|run|info|stopall|cleanall) "$1" ;; *) printf >&2 '%s: unknown command\n' "$1"; exit 1;; esac
+case $1 in build|run|info|stop|stopall|clean|cleanall) "$1" ;; *) printf >&2 '%s: unknown command\n' "$1"; exit 1;; esac
