@@ -13,7 +13,7 @@ func main() {
   if err != nil {
     log.Fatal(err)
   }
-  err = db.ping()
+  err = db.Ping()
   if err != nil {
     log.Fatal(err)
   }
