@@ -2,11 +2,11 @@
 
 build() {
   cd postgres;
-  docker build --no-cache -t outyet .
+  docker build --no-cache -t outyet1 .
   boot2docker up && $(boot2docker shellinit) 
   boot2docker ip
   cd ../webserver;
-  docker build --no-cache -t outyet .
+  docker build --no-cache -t outyet2 .
   boot2docker up && $(boot2docker shellinit) 
   boot2docker ip
 }
@@ -15,9 +15,9 @@ run() {
   # Run a docker
   # -v ... it maps the filesystem from container to docker host filesystem
   cd postgres;
-  docker run -d -p 5432:5432 -e POSTGRES_USER=admin -e POSTGRES_PASSWORD=changeme --name postgresql_db -v "/var/lib/postgresql/data:/var/lib/postgresql/data" outyet
+  docker run -d -p 5432:5432 -e POSTGRES_USER=admin -e POSTGRES_PASSWORD=changeme --name postgresql_db -v "/var/lib/postgresql/data:/var/lib/postgresql/data" outyet1
   cd ../webserver;
-  docker run -d -p 8080:8080 -t outyet --name webserver
+  docker run -d -p 8080:8080 --name webserver outyet2
 }
 
 info() {
