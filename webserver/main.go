@@ -4,6 +4,7 @@ import (
   "io"
   "net/http"
   "log"
+  "fmt"
   "database/sql"
   _ "github.com/lib/pq"
 )
