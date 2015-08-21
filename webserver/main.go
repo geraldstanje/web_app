@@ -35,11 +35,11 @@ func main() {
   l.EmitLine("[database] Connecting to database...")
   db, err := sql.Open("postgres", "postgres://admin:changeme@192.168.59.103:5432/admin?sslmode=disable") //?sslmode=verify-full")
   if err != nil {
-    l.EmitLine(err.Error())
+    l.EmitLine("Error: " + err.Error())
   }
   err = db.Ping()
   if err != nil {
-    l.EmitLine(err.Error())
+    l.EmitLine("Error: " + err.Error())
   } 
   l.EmitLine("[database] Connected successfully.")
 
