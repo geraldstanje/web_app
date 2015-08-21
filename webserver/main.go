@@ -3,13 +3,13 @@ package main
 import (
   "io"
   "net/http"
+  "bytes"
   "database/sql"
   _ "github.com/lib/pq"
-  "fmt"
 )
 
 type struct Logger {
-  msg string
+  writer bytes.Buffer
 }
 
 func NewLogger() *Logger {
@@ -19,6 +19,10 @@ func NewLogger() *Logger {
 func (l *Logger) EmitLine(line string) {
   l.writer.WriteString(line)
   l.writer.WriteString("\n")
+}
+
+func (l *Logger) Print() string {
+  return l.writer.String()
 }
 
 func homeHandler(w http.ResponseWriter, r *http.Request, msg string) {
@@ -39,6 +43,6 @@ func main() {
   } 
   l.EmitLine("[database] Connected successfully.")
 
-  http.HandleFunc("/", makeHandler(homeHandler))
+  http.HandleFunc("/", makeHandler(homeHandler), l.Print())
   http.ListenAndServe(":8000", nil)
 }
