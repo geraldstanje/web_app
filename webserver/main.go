@@ -18,12 +18,10 @@ func main() {
   db, err := sql.Open("postgres", "postgres://admin:changeme@192.168.59.103:5432/admin?sslmode=disable") //?sslmode=verify-full")
   if err != nil {
     log.Fatal(err)
-    fmt.Println(err.Error())
   }
   err = db.Ping()
   if err != nil {
     log.Fatal(err)
-    fmt.Println(err.Error())
   } 
   fmt.Println("[database] Connected successfully.")
 
