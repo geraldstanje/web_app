@@ -3,48 +3,29 @@ package main
 import (
   "io"
   "net/http"
-  "bytes"
+  "log"
   "database/sql"
   _ "github.com/lib/pq"
 )
-
-type Logger struct {
-  writer bytes.Buffer
-}
-
-func NewLogger() *Logger {
-  return &Logger{}
-}
-
-func (l *Logger) EmitLine(line string) {
-  l.writer.WriteString(line)
-  l.writer.WriteString("\n")
-}
-
-func (l *Logger) Print() string {
-  return l.writer.String()
-}
 
 func homeHandler(w http.ResponseWriter, r *http.Request, msg string) {
   io.WriteString(w, msg)
 }
 
 func main() {
-  l := NewLogger()
-
-  l.EmitLine("[database] Connecting to database...")
+  fmt.Println("[database] Connecting to database...")
   db, err := sql.Open("postgres", "postgres://admin:changeme@192.168.59.103:5432/admin?sslmode=disable") //?sslmode=verify-full")
   if err != nil {
-    l.EmitLine("Error: " + err.Error())
+    log.Fatal(err)
   }
   err = db.Ping()
   if err != nil {
-    l.EmitLine("Error: " + err.Error())
+    log.Fatal(err)
   } 
-  l.EmitLine("[database] Connected successfully.")
+  fmt.Println("[database] Connected successfully.")
 
   http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-    homeHandler(w, r, l.Print())
+    homeHandler(w, r, "Hello World")
   })
 
   http.ListenAndServe(":8080", nil)
