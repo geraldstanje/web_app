@@ -8,7 +8,7 @@ import (
   _ "github.com/lib/pq"
 )
 
-type struct Logger {
+type Logger struct {
   writer bytes.Buffer
 }
 
