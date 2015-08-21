@@ -23,10 +23,7 @@ run() {
 info() {
   # docker ps
   # docker inspect hash
-  cd postgres;
   docker ps
-  cd ../webserver;
-  docker ps;
 }
 
 logs() {
