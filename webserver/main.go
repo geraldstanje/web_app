@@ -43,6 +43,9 @@ func main() {
   } 
   l.EmitLine("[database] Connected successfully.")
 
-  http.HandleFunc("/", makeHandler(homeHandler), l.Print())
+  http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+    handler(w, r, l.Print())
+  })
+
   http.ListenAndServe(":8000", nil)
 }
