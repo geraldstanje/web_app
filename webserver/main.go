@@ -52,7 +52,7 @@ func index(w http.ResponseWriter, r *http.Request) {
     </head>
     <body>
         <form action="/upload" method="post" enctype="multipart/form-data">
-            <input type="file" id="file" name="file">
+            <input type="file" id="file" name="file" accept="image/*">
             <input type="submit" name="submit" value="submit">
         </form>
     </body>
