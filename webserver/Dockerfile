@@ -4,7 +4,7 @@ RUN ["go", "get", "github.com/geraldstanje/web_app/webserver" ]
 
 WORKDIR /go/src/github.com/geraldstanje/web_app/webserver
 
-VOLUME ["/var/volume1", "/var/volume2"]
+VOLUME ["/var/volume1", "/files"]
 
 ENTRYPOINT go build && ./webserver
 
