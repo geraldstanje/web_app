@@ -2,6 +2,7 @@ package main
 
 import (
   "io"
+  "io/ioutil"
   "net/http"
   "log"
   "fmt"
