@@ -14,6 +14,9 @@ build() {
 run() {
   # Run a docker
   # -v ... it maps the filesystem from container to docker host filesystem
+  # the difference between docker run -v /host/path:/container/path and docker run -v /container/path is, 
+  # that in the first case you provide a directory to mount in, in the 2nd case, docker creates a directory 
+  # in /var/lib/docker and uses that as the host path
   cd postgres;
   docker run -d -p 5432:5432 -e POSTGRES_USER=admin -e POSTGRES_PASSWORD=changeme --name postgresql_db -v "/var/lib/postgresql/data:/var/lib/postgresql/data" outyet1
   cd ../webserver;
