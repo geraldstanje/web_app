@@ -17,7 +17,7 @@ run() {
   cd postgres;
   docker run -d -p 5432:5432 -e POSTGRES_USER=admin -e POSTGRES_PASSWORD=changeme --name postgresql_db -v "/var/lib/postgresql/data:/var/lib/postgresql/data" outyet1
   cd ../webserver;
-  docker run -d -p 8080:8080 --name webserver outyet2
+  docker run -d -p 8080:8080 --name webserver -v "/go/src/github.com/geraldstanje/web_app/webserver/files:/var/volume1" outyet2
 }
 
 info() {
