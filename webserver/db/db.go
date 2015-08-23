@@ -20,7 +20,7 @@ func IsValidLogin(username string, password string) bool {
   } 
   fmt.Println("[database] Connected successfully.")
 
-  rows, err := db.Query("SELECT * FROM account")
+  rows, err := db.Query("SELECT * FROM account WHERE username=?", username)
   if err != nil {
     log.Fatal(err)
   }
