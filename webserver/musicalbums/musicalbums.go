@@ -176,7 +176,7 @@ func MusicAlbums(w http.ResponseWriter, req *http.Request) {
     //t, _ = t.ParseFiles("tmpl/welcome.html", nil)  // Parse template file.
     //user := GetUser() // Get current user infomration.
 
-    user := User{userName: userName)
+    user := User{userName: userName}
 
     t, _ := template.New("foo").Parse(musicAlbumsPage)
     t.Execute(w, user)  // merge.
