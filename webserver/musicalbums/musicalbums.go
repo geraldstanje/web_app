@@ -45,8 +45,7 @@ func Resize(w http.ResponseWriter, r *http.Request) {
   }
 }
 
-func MusicAlbums(w http.ResponseWriter, req *http.Request) {
-  const musicAlbumsPage = `
+const musicAlbumsPage = `
 <!DOCTYPE html>
 <html>
 <head>
@@ -163,8 +162,9 @@ window.onload = function() {
 <div id='result'></div>
 </body>
 </html>
-  `
+`
 
+func MusicAlbums(w http.ResponseWriter, req *http.Request) {
   userName := s.GetUserName(req)
   fmt.Println("userName: " + userName)
   if userName != "" {
