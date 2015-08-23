@@ -6,6 +6,7 @@ import (
   "net/http"
   "log"
   "fmt"
+  "html/template"
 )
 
 var size = "10"
@@ -137,7 +138,7 @@ window.onload = function() {
 </head>
 <body>
 
-<small>User: %s</small>
+<small>User: {{.userName}}</small>
 <form method="post" action="/logout">
     <button type="submit">Logout</button>
 </form><BR>
@@ -166,9 +167,15 @@ window.onload = function() {
 
 func MusicAlbums(w http.ResponseWriter, req *http.Request) {
   userName := s.GetUserName(req)
-  fmt.Println("userName: " + userName)
+  //fmt.Println("userName: " + userName)
   if userName != "" {
-    fmt.Fprintf(w, musicAlbumsPage, userName)
+    //t := template.New("some template") // Create a template.
+    //t, _ = t.ParseFiles("tmpl/welcome.html", nil)  // Parse template file.
+    //user := GetUser() // Get current user infomration.
+    t := template.New("foo").Parse(musicAlbumsPage)
+    t.Execute(w, userName)  // merge.
+
+    //fmt.Fprintf(w, musicAlbumsPage, userName)
   } else {
     http.Redirect(w, req, "/", 302)
   }
