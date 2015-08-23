@@ -29,6 +29,8 @@ func Upload(w http.ResponseWriter, r *http.Request) {
  }
 
 func Resize(w http.ResponseWriter, r *http.Request) {
+  fmt.Println(size)
+
   if r.Method == "POST" {
     size = r.FormValue("value")
     if size == "" {
