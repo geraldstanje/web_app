@@ -22,7 +22,7 @@ func IsValidLogin(username string, password string) bool {
 
   query := fmt.Sprintf("SELECT password FROM account WHERE username='%s'", username)
   var pass string
-  rows, err := db.QueryRow(query).Scan(&pass)
+  err = db.QueryRow(query).Scan(&pass)
   if err == sql.ErrNoRows {
     fmt.Println("[database] login failed...")
     return false
