@@ -28,8 +28,6 @@ func IsValidLogin(username string, password string) bool {
 
   defer rows.Close()
   for rows.Next() {
-    var email string
-    var user string
     var pass string
 
     err = rows.Scan(&pass)
