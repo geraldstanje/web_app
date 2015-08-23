@@ -177,7 +177,7 @@ func MusicAlbums(w http.ResponseWriter, req *http.Request) {
 
     err := musicAlbumsTemplate.Execute(w, userName)  // merge.
     if err != nil {
-      http.Error(w, err1.Error(), http.StatusInternalServerError)
+      http.Error(w, err.Error(), http.StatusInternalServerError)
     }
     //fmt.Fprintf(w, musicAlbumsPage, userName)
   } else {
