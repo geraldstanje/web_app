@@ -197,7 +197,7 @@ window.onload = function() {
 </html>
   `
 
-  userName := s.GetUserName(request)
+  userName := s.GetUserName(req)
   if userName != "" {
     fmt.Fprintf(response, text, userName)
   } else {
