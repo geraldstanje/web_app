@@ -16,7 +16,7 @@ func Login(response http.ResponseWriter, request *http.Request) {
       http.Redirect(response, request, redirectTarget, 302)
       return
     }
-    s.SetSession(name, response)
+    s.SetSession(user, response)
     redirectTarget = "/musicalbums"
   }
   http.Redirect(response, request, redirectTarget, 302)
