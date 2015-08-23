@@ -11,7 +11,7 @@ var cookieHandler = securecookie.New(
 
 func SetSession(userName string, response http.ResponseWriter) {
   value := map[string]string{
-    "name": userName,
+    "user": userName,
   }
   if encoded, err := cookieHandler.Encode("session", value); err == nil {
     cookie := &http.Cookie{
@@ -37,7 +37,7 @@ func GetUserName(request *http.Request) (userName string) {
   if cookie, err := request.Cookie("session"); err == nil {
     cookieValue := make(map[string]string)
     if err = cookieHandler.Decode("session", cookie.Value, &cookieValue); err == nil {
-      userName = cookieValue["name"]
+      userName = cookieValue["user"]
     }
   }
   return userName
