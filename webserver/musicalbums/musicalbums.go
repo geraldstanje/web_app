@@ -10,7 +10,7 @@ import (
 )
 
 var size = "10"
-.
+
 type User struct {
 	Username string
 }
