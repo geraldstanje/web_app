@@ -87,7 +87,7 @@ func Resize(w http.ResponseWriter, r *http.Request) {
 
 func MusicAlbums(w http.ResponseWriter, req *http.Request) {
 	user := s.GetUserName(req)
-	if email != "" {
+	if user != "" {
 		err := renderMusicAlbumsTemplate(w, user)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
