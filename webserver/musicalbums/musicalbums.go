@@ -46,8 +46,7 @@ func Resize(w http.ResponseWriter, r *http.Request) {
 }
 
 func HomeHandler(w http.ResponseWriter, req *http.Request) {
-  //w.Header().Set("Content-Type", "text/html")
-  var text = `
+  const homePage = `
 <!DOCTYPE html>
 <html>
 <head>
@@ -198,10 +197,8 @@ window.onload = function() {
   userName := s.GetUserName(req)
   fmt.Println("userName: " + userName)
   if userName != "" {
-    fmt.Fprintf(w, text, userName)
+    fmt.Fprintf(w, homePage, userName)
   } else {
     http.Redirect(w, req, "/", 302)
   }
-
-  //w.Write([]byte(text))
 }
