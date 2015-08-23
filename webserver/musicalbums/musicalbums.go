@@ -21,7 +21,7 @@ type Image struct {
   Height string
 }
 
-const imageLink = `<img border="5" style="margin:5px 5px" src="{{.Filename}}" width="{{.Width}}" height="{{.Height}}">`
+const imageLink = `<img border="5" style="margin:5px 5px" src="files/{{.Filename}}" width="{{.Width}}" height="{{.Height}}">`
 
 func renderImgTemplate(w http.ResponseWriter, filename string, width string, height string) error {
   img := Image{Filename: filename, Width: width, Height: height}
