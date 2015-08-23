@@ -20,9 +20,10 @@ func IsValidLogin(username string, password string) bool {
   } 
   fmt.Println("[database] Connected successfully.")
 
-  rows, err := db.Query("SELECT * FROM account WHERE username=?", username)
+  rows, err := db.Query("SELECT password FROM account WHERE username=?", username)
   if err != nil {
-    log.Fatal(err)
+    fmt.Println("[database] login failed...")
+    return false
   }
 
   defer rows.Close()
@@ -31,12 +32,12 @@ func IsValidLogin(username string, password string) bool {
     var user string
     var pass string
 
-    err = rows.Scan(&email, &user, &pass)
+    err = rows.Scan(&pass)
     if err != nil {
       log.Fatal(err)
     }
 
-    if username == user && password == pass {
+    if password == pass {
       return true
     }
   }
