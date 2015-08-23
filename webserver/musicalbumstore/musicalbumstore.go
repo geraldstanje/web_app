@@ -1,133 +1,15 @@
-/*
-package main
+package musicalbumstore
 
 import (
-  "io"
-  "io/ioutil"
-  "net/http"
-  "log"
-  "fmt"
-  "bytes"
-  "database/sql"
-  _ "github.com/lib/pq"
-)
-
-func homeHandler(w http.ResponseWriter, r *http.Request, msg string) {
-  io.WriteString(w, msg)
-}
-
-type Buffer struct {
-  writer bytes.Buffer
-}
-
-func NewBuffer() *Buffer {
-  return &Buffer{}
-}
-
-func (b *Buffer) EmitLine(line string) {
-  b.writer.WriteString(line)
-  b.writer.WriteString("\n")
-}
-
-func (b *Buffer) Print() string {
-  return b.writer.String()
-}
-
-func upload(w http.ResponseWriter, r *http.Request) {
-  if r.Method == "POST" {
-    _, header, _ := r.FormFile("file")
-    file, _ := header.Open()
-    path := fmt.Sprintf("files/%s", header.Filename)
-    buf, _ := ioutil.ReadAll(file)
-    ioutil.WriteFile(path, buf, 0644)
-    http.Redirect(w, r, "/"+path, 301)
-  } else {
-    http.Redirect(w, r, "/", 301)
-  }
-}
-
-func index(w http.ResponseWriter, r *http.Request) {
-  fmt.Fprintf(w, `<html>
-    <head>
-        <title>Music album collection</title>
-    </head>
-    <body>
-        <form action="/upload" method="post" enctype="multipart/form-data">
-            <input type="file" id="file" name="file" accept="image/*">
-            <input type="submit" name="submit" value="submit">
-        </form>
-    </body>
-</html>`)
-}
-
-func main() {
-  fmt.Println("[database] Connecting to database...")
-  db, err := sql.Open("postgres", "postgres://admin:changeme@192.168.59.103:5432/admin?sslmode=disable") //?sslmode=verify-full")
-  if err != nil {
-    log.Fatal(err)
-  }
-  err = db.Ping()
-  if err != nil {
-    log.Fatal(err)
-  } 
-  fmt.Println("[database] Connected successfully.")
-
-  rows, err := db.Query("SELECT * FROM account")
-  if err != nil {
-    log.Fatal(err)
-  }
-
-  b := NewBuffer()
-
-  for rows.Next() {
-    var email string
-    var username string
-    var password string
-
-    err = rows.Scan(&email, &username, &password)
-    if err != nil {
-      log.Fatal(err)
-    }
-    b.EmitLine(email + " " + username + " " + password)
-  }
-
-  staticServer := http.StripPrefix("/files/", http.FileServer(http.Dir("files/")))
-  http.HandleFunc("/", index)
-  http.HandleFunc("/upload", upload)
-  http.Handle("/files/", staticServer)
-
-  //http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-  //  homeHandler(w, r, b.Print())
-  //})
-
-  http.ListenAndServe(":8080", nil)
-}
-*/
-
-/*
-package main
-
-import (
-  //"io"
   "io/ioutil"
   "net/http"
   "log"
   "fmt"
 )
 
-type MusicAlbumStore struct {
-  size string
-  errChan chan error
-}
+var size = "10"
 
-func NewMusicAlbumStore() *MusicAlbumStore {
-  m := MusicAlbumStore{}
-  m.size = "10"
-  m.errChan = make(chan error) // unbuffered channel
-  return &m
-}
-
-func (m *MusicAlbumStore) upload(w http.ResponseWriter, r *http.Request) {
+func Upload(w http.ResponseWriter, r *http.Request) {
   if r.Method == "POST" {
     _, header, err := r.FormFile("TheFile")
     if err != nil {
@@ -146,7 +28,7 @@ func (m *MusicAlbumStore) upload(w http.ResponseWriter, r *http.Request) {
   }
  }
 
-func (m *MusicAlbumStore) resize(w http.ResponseWriter, r *http.Request) {
+func Resize(w http.ResponseWriter, r *http.Request) {
   if r.Method == "POST" {
     m.size = r.FormValue("value")
     if m.size == "" {
@@ -162,7 +44,7 @@ func (m *MusicAlbumStore) resize(w http.ResponseWriter, r *http.Request) {
   }
 }
 
-func (m *MusicAlbumStore) homeHandler(w http.ResponseWriter, req *http.Request) {
+func HomeHandler(w http.ResponseWriter, req *http.Request) {
   w.Header().Set("Content-Type", "text/html")
   var text = `
 <!DOCTYPE html>
@@ -307,51 +189,4 @@ window.onload = function() {
 </html>
   `
   w.Write([]byte(text))
-}
-
-func (m *MusicAlbumStore) startHTTPServer() {
-  staticServer := http.StripPrefix("/files/", http.FileServer(http.Dir("files/")))
-  http.HandleFunc("/", http.HandlerFunc(m.homeHandler))
-  http.HandleFunc("/upload", m.upload)
-  http.HandleFunc("/resize", m.resize)
-  http.Handle("/files/", staticServer)
-  err := http.ListenAndServe(":8080", nil)
-  m.errChan <- err
-}
-
-func main() {
-  m := NewMusicAlbumStore()
-  m.startHTTPServer()
-}
-*/
-
-package main
-
-import (
-  "net/http"
-  "github.com/gorilla/mux"
-  m "github.com/geraldstanje/web_app/webserver/musicalbumstore"
-)
-
-var router = mux.NewRouter()
-
-func uploadHandler(w http.ResponseWriter, r *http.Request) {
-  m.Upload(w,r)
-}
-
-func homeHandler(w http.ResponseWriter, r *http.Request) {
-  m.HomeHandler(w,r)
-}
-
-func resizeHandler(w http.ResponseWriter, r *http.Request) {
-  m.Resize(w,r)
-}
-
-func main() {
-  router.HandleFunc("/", homeHandler)
-  router.HandleFunc("/upload", uploadHandler)
-  router.HandleFunc("/resize", resizeHandler)
-  http.Handle("/", router)
-  http.Handle("/files/", http.StripPrefix("/files/", http.FileServer(http.Dir("files"))))
-  http.ListenAndServe(":8080", nil)
 }
