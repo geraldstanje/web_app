@@ -165,7 +165,7 @@ window.onload = function() {
 </html>
 `
 
-struct User type {
+type User struct {
   userName string
 }
 
