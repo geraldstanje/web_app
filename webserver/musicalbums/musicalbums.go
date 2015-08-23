@@ -24,7 +24,7 @@ type Image struct {
 
 const imageLink = `<img border=\"5\" style=\"margin:5px 5px\" src=\"{{.Filename}}\" width=\"{{.Width}}\" height=\"{{.Height}}\">`
 
-func renderImgTemplate(w *http.ResponseWriter, filename string, width string, height string) error {
+func renderImgTemplate(w http.ResponseWriter, filename string, width string, height string) error {
   img := Image{Filename: filename, Width: width, Height: height}
   t, err := template.New("imagelink").Parse(imageLink)
   if err != nil {
@@ -51,7 +51,7 @@ func Upload(w http.ResponseWriter, r *http.Request) {
 
 		files, _ := ioutil.ReadDir("./files")
 		for _, f := range files {
-			img, err := renderImgTemplate(&w, f.Name(), size, size)
+			img, err := renderImgTemplate(w, f.Name(), size, size)
       if err != nil {
         log.Fatal(err)
       }
