@@ -172,9 +172,14 @@ func MusicAlbums(w http.ResponseWriter, req *http.Request) {
     //t := template.New("some template") // Create a template.
     //t, _ = t.ParseFiles("tmpl/welcome.html", nil)  // Parse template file.
     //user := GetUser() // Get current user infomration.
-    t := template.New("foo").Parse(musicAlbumsPage)
-    t.Execute(w, userName)  // merge.
-
+    t, err := template.New("foo").Parse(musicAlbumsPage)
+    if err != nil {
+      log.Fatal(err)
+    }
+    err = t.Execute(w, userName)  // merge.
+    if err != nil {
+      log.Fatal(err)
+    }
     //fmt.Fprintf(w, musicAlbumsPage, userName)
   } else {
     http.Redirect(w, req, "/", 302)
