@@ -50,7 +50,7 @@ func Upload(w http.ResponseWriter, r *http.Request) {
 
 		files, _ := ioutil.ReadDir("./files")
 		for _, f := range files {
-			img, err := renderImgTemplate(f.Name(), size, size)
+			img, err := renderImgTemplate(&w, f.Name(), size, size)
       if err != nil {
         log.Fatal(err)
       }
