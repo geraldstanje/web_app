@@ -165,6 +165,8 @@ window.onload = function() {
 </html>
 `
 
+var musicAlbumsTemplate = template.Must(template.New("musicAlbums").Parse(musicAlbumsPage))
+
 func MusicAlbums(w http.ResponseWriter, req *http.Request) {
   userName := s.GetUserName(req)
   //fmt.Println("userName: " + userName)
@@ -173,14 +175,10 @@ func MusicAlbums(w http.ResponseWriter, req *http.Request) {
     //t, _ = t.ParseFiles("tmpl/welcome.html", nil)  // Parse template file.
     //user := GetUser() // Get current user infomration.
 
-    //t, _ := template.New("foo").Parse(musicAlbumsPage)
-    //t.Execute(w, userName)  // merge.
-      
-    err := templates.ExecuteTemplate(w, musicAlbumsPage, userName)
+    err := musicAlbumsTemplate.Execute(w, userName)  // merge.
     if err != nil {
-        http.Error(w, err.Error(), http.StatusInternalServerError)
+      http.Error(w, err1.Error(), http.StatusInternalServerError)
     }
-    
     //fmt.Fprintf(w, musicAlbumsPage, userName)
   } else {
     http.Redirect(w, req, "/", 302)
