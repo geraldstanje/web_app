@@ -15,8 +15,6 @@ type User struct {
   Username string
 }
 
-var musicAlbumsTemplate = template.Must(template.New("musicAlbums").ParseFiles("templates/musicalbums.html"))
-
 func Upload(w http.ResponseWriter, r *http.Request) {
   if r.Method == "POST" {
     _, header, err := r.FormFile("TheFile")
@@ -56,7 +54,11 @@ func MusicAlbums(w http.ResponseWriter, req *http.Request) {
   username := s.GetUserName(req)
   if username != "" {
     user := User{Username: username}
-    err := musicAlbumsTemplate.Execute(w, user)
+    musicAlbumsTemplate, err := template.ParseFiles("templates/musicalbums.html")
+    if err != nil {
+      http.Error(w, err.Error(), http.StatusInternalServerError)
+    }
+    err = musicAlbumsTemplate.Execute(w, user)
     if err != nil {
       http.Error(w, err.Error(), http.StatusInternalServerError)
     }
