@@ -12,7 +12,7 @@ func Login(response http.ResponseWriter, request *http.Request) {
   redirectTarget := "/"
 
   if user != "" && pass != "" {
-    if !d.IsCorrectLogin(user, pass) {
+    if !d.IsValidLogin(user, pass) {
       http.Redirect(response, request, redirectTarget, 302)
       return
     }
