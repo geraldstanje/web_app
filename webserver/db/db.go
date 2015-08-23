@@ -25,12 +25,13 @@ func IsValidLogin(username string, password string) bool {
     log.Fatal(err)
   }
 
-  fmt.Println("[database] len(rows): " + len(rows))
-
+  defer rows.Close()
   for rows.Next() {
     var email string
     var user string
     var pass string
+
+    fmt.Println("[database] check rows...")
 
     err = rows.Scan(&email, &user, &pass)
     if err != nil {
