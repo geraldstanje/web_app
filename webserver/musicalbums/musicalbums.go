@@ -4,7 +4,7 @@ import (
 	"fmt"
 	s "github.com/geraldstanje/web_app/webserver/session"
 	"html/template"
-	//"io/ioutil"
+	"io/ioutil"
   "io"
 	"log"
 	"net/http"
