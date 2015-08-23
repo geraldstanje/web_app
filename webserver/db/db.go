@@ -20,7 +20,7 @@ func IsValidLogin(username string, password string) bool {
   } 
   fmt.Println("[database] Connected successfully.")
 
-  query := fmt.Sprintf("SELECT password FROM account WHERE username=%s", username)
+  query := fmt.Sprintf("SELECT password FROM account WHERE username = %s", username)
   rows, err := db.Query(query)
   if err != nil {
     fmt.Println("[database] login failed...")
