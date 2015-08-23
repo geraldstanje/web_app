@@ -33,7 +33,7 @@ func renderImgTemplate(w http.ResponseWriter, filename string, width string, hei
 	return err
 }
 
-func renderMusicAlbumsTemplate(w http.ResponseWriter) {
+func renderMusicAlbumsTemplate(w http.ResponseWriter, username string) error {
 	user := User{Username: username}
 	t, err := template.ParseFiles("templates/musicalbums.html")
 	if err != nil {
@@ -85,7 +85,7 @@ func Resize(w http.ResponseWriter, r *http.Request) {
 func MusicAlbums(w http.ResponseWriter, req *http.Request) {
 	username := s.GetUserName(req)
 	if username != "" {
-		err := renderMusicAlbumsTemplate(w)
+		err := renderMusicAlbumsTemplate(w, username)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
