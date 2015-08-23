@@ -48,8 +48,8 @@ func Upload(w http.ResponseWriter, r *http.Request) {
 		_, header, err := r.FormFile("TheFile")
 		if err != nil {
 			log.Println("[webserver] " + err.Error())
-      http.Error(w, err.Error(), http.StatusInternalServerError)
-      return
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
 		}
 		file, _ := header.Open()
 		path := fmt.Sprintf("files/%s", header.Filename)
@@ -61,7 +61,7 @@ func Upload(w http.ResponseWriter, r *http.Request) {
 			err = renderImgTemplate(w, f.Name(), size, size)
 			if err != nil {
 				log.Println("[webserver] " + err.Error())
-        http.Error(w, err.Error(), http.StatusInternalServerError)
+				http.Error(w, err.Error(), http.StatusInternalServerError)
 			}
 		}
 	}

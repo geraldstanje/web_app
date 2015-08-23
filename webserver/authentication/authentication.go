@@ -14,7 +14,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	if user != "" && pass != "" && d.IsValidLogin(user, pass) {
 		s.SetSession(user, w)
 		redirectTarget = "/musicalbums"
-  }
+	}
 	http.Redirect(w, r, redirectTarget, 302)
 }
 

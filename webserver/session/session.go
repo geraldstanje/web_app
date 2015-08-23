@@ -5,7 +5,7 @@ import (
 	"net/http"
 )
 
-var cookieHandler = securecookie.New(securecookie.GenerateRandomKey(64),securecookie.GenerateRandomKey(32))
+var cookieHandler = securecookie.New(securecookie.GenerateRandomKey(64), securecookie.GenerateRandomKey(32))
 
 func SetSession(userName string, w http.ResponseWriter) {
 	value := map[string]string{
