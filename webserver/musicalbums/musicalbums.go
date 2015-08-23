@@ -5,7 +5,6 @@ import (
 	s "github.com/geraldstanje/web_app/webserver/session"
 	"html/template"
 	"io/ioutil"
-  "io"
 	"log"
 	"net/http"
 )
@@ -22,7 +21,7 @@ type Image struct {
   Height string
 }
 
-const imageLink = `<img border=\"5\" style=\"margin:5px 5px\" src=\"{{.Filename}}\" width=\"{{.Width}}\" height=\"{{.Height}}\">`
+const imageLink = `<img border="5" style="margin:5px 5px" src="{{.Filename}}" width="{{.Width}}" height="{{.Height}}">`
 
 func renderImgTemplate(w http.ResponseWriter, filename string, width string, height string) error {
   img := Image{Filename: filename, Width: width, Height: height}
@@ -30,12 +29,8 @@ func renderImgTemplate(w http.ResponseWriter, filename string, width string, hei
   if err != nil {
     return err
   }
-  var out string
   err = t.Execute(w, img)
-  if err != nil {
-    return err
-  }
-  return nil
+  return err
 }
 
 func Upload(w http.ResponseWriter, r *http.Request) {
