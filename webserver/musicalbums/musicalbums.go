@@ -174,7 +174,7 @@ var musicAlbumsTemplate = template.Must(template.New("musicAlbums").Parse(musicA
 func MusicAlbums(w http.ResponseWriter, req *http.Request) {
   username := s.GetUserName(req)
   if username != "" {
-    user := User{userName: username}
+    user := User{Username: username}
     err := musicAlbumsTemplate.Execute(w, user)
     if err != nil {
       http.Error(w, err.Error(), http.StatusInternalServerError)
