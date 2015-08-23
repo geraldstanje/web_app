@@ -138,7 +138,7 @@ window.onload = function() {
 </head>
 <body>
 
-<small>User: {{.userName}}</small>
+<small>User: {{.Username}}</small>
 <form method="post" action="/logout">
     <button type="submit">Logout</button>
 </form><BR>
@@ -166,7 +166,7 @@ window.onload = function() {
 `
 
 type User struct {
-  userName string
+  Username string
 }
 
 var musicAlbumsTemplate = template.Must(template.New("musicAlbums").Parse(musicAlbumsPage))
