@@ -4,7 +4,8 @@ import (
 	"fmt"
 	s "github.com/geraldstanje/web_app/webserver/session"
 	"html/template"
-	"io/ioutil"
+	//"io/ioutil"
+  "io"
 	"log"
 	"net/http"
 )
@@ -23,7 +24,7 @@ type Image struct {
 
 const imageLink = `<img border=\"5\" style=\"margin:5px 5px\" src=\"{{.Filename}}\" width=\"{{.Width}}\" height=\"{{.Height}}\">`
 
-func renderImgTemplate(w *io.Writer, filename string, width string, height string) error {
+func renderImgTemplate(w *http.ResponseWriter, filename string, width string, height string) error {
   img := Image{Filename: filename, Width: width, Height: height}
   t, err := template.New("imagelink").Parse(imageLink)
   if err != nil {
