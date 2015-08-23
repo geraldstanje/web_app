@@ -7,7 +7,7 @@ import (
   _ "github.com/lib/pq"
 )
 
-func IsValidLogin(username string, password string) {
+func IsValidLogin(username string, password string) bool {
   fmt.Println("[database] Connecting to database...")
   db, err := sql.Open("postgres", "postgres://admin:changeme@192.168.59.103:5432/admin?sslmode=disable")
   defer db.Close()
