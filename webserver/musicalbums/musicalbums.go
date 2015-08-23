@@ -10,7 +10,7 @@ import (
 )
 
 var size = "10"
-
+.
 type User struct {
 	Username string
 }
@@ -47,7 +47,7 @@ func Upload(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
 		_, header, err := r.FormFile("TheFile")
 		if err != nil {
-			log.Println(err)
+			log.Println("[webserver] " + err.Error())
       http.Error(w, err.Error(), http.StatusInternalServerError)
       return
 		}
@@ -60,7 +60,7 @@ func Upload(w http.ResponseWriter, r *http.Request) {
 		for _, f := range files {
 			err = renderImgTemplate(w, f.Name(), size, size)
 			if err != nil {
-				log.Println(err.Error())
+				log.Println("[webserver] " + err.Error())
         http.Error(w, err.Error(), http.StatusInternalServerError)
 			}
 		}
@@ -71,7 +71,7 @@ func Resize(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
 		size = r.FormValue("value")
 		if size == "" {
-			log.Println("Empty FormValue")
+			log.Println("[webserver] " + "Empty FormValue")
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
 
