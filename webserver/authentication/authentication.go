@@ -11,14 +11,10 @@ func Login(response http.ResponseWriter, request *http.Request) {
 	pass := request.FormValue("password")
 	redirectTarget := "/"
 
-	if user != "" && pass != "" {
-		if !d.IsValidLogin(user, pass) {
-			http.Redirect(response, request, redirectTarget, 302)
-			return
-		}
+	if user != "" && pass != "" && d.IsValidLogin(user, pass) {
 		s.SetSession(user, response)
 		redirectTarget = "/musicalbums"
-	}
+  }
 	http.Redirect(response, request, redirectTarget, 302)
 }
 

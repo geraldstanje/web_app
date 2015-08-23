@@ -47,7 +47,9 @@ func Upload(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
 		_, header, err := r.FormFile("TheFile")
 		if err != nil {
-			log.Fatal(err)
+			log.Println(err)
+      http.Error(w, err.Error(), http.StatusInternalServerError)
+      return
 		}
 		file, _ := header.Open()
 		path := fmt.Sprintf("files/%s", header.Filename)
@@ -58,7 +60,8 @@ func Upload(w http.ResponseWriter, r *http.Request) {
 		for _, f := range files {
 			err = renderImgTemplate(w, f.Name(), size, size)
 			if err != nil {
-				log.Fatal(err)
+				log.Println(err.Error())
+        http.Error(w, err.Error(), http.StatusInternalServerError)
 			}
 		}
 	}
@@ -68,15 +71,15 @@ func Resize(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
 		size = r.FormValue("value")
 		if size == "" {
-			fmt.Println("Empty FormValue")
-			return
+			log.Println("Empty FormValue")
+			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
 
 		files, _ := ioutil.ReadDir("./files")
 		for _, f := range files {
 			err := renderImgTemplate(w, f.Name(), size, size)
 			if err != nil {
-				log.Fatal(err)
+				http.Error(w, err.Error(), http.StatusInternalServerError)
 			}
 		}
 	}
