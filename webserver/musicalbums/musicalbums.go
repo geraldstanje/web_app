@@ -15,6 +15,28 @@ type User struct {
 	Username string
 }
 
+type Image struct {
+  Filename  string
+  Width   string
+  Height string
+}
+
+const imageLink = `<img border=\"5\" style=\"margin:5px 5px\" src=\"{{.Filename}}\" width=\"{{.Width}}\" height=\"{{.Height}}\">`
+
+func renderImgTemplate(filename string, width string, height string) (string, error) {
+  img := Image{Filename: username, Width: width, Height: height}
+  t, err := template.New("imagelink").Parse(imageLink)
+  if err != nil {
+    return "", err
+  }
+  var out string
+  err = t.ExecuteTemplate(out, img)
+  if err != nil {
+    return "", err
+  }
+  return out, nil
+}
+
 func Upload(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
 		_, header, err := r.FormFile("TheFile")
@@ -28,7 +50,11 @@ func Upload(w http.ResponseWriter, r *http.Request) {
 
 		files, _ := ioutil.ReadDir("./files")
 		for _, f := range files {
-			img := fmt.Sprintf("<img border=\"5\" style=\"margin:5px 5px\" src=\""+"files/%s"+"\" width=\""+"%s"+"\" height=\""+"%s"+"\">", f.Name(), size, size)
+			img, err := renderImgTemplate(f.Name(), size, size)
+      if err != nil {
+        log.Fatal(err)
+      }
+      //img := fmt.Sprintf("<img border=\"5\" style=\"margin:5px 5px\" src=\""+"files/%s"+"\" width=\""+"%s"+"\" height=\""+"%s"+"\">", f.Name(), size, size)
 			w.Write([]byte(img))
 		}
 	}
