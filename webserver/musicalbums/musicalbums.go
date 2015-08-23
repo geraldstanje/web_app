@@ -199,9 +199,9 @@ window.onload = function() {
 
   userName := s.GetUserName(req)
   if userName != "" {
-    fmt.Fprintf(response, text, userName)
+    fmt.Fprintf(w, text, userName)
   } else {
-    http.Redirect(response, request, "/", 302)
+    http.Redirect(w, req, "/", 302)
   }
 
   //w.Write([]byte(text))
