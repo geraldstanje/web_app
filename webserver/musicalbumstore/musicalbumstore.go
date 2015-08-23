@@ -22,7 +22,7 @@ func Upload(w http.ResponseWriter, r *http.Request) {
 
     files, _ := ioutil.ReadDir("./files")
     for _, f := range files {
-      img := fmt.Sprintf("<img border=\"5\" style=\"margin:5px 5px\" src=\"" + "files/%s" + "\" width=\"" + "%s" + "\" height=\"" + "%s" + "\">", f.Name(), m.size, m.size)
+      img := fmt.Sprintf("<img border=\"5\" style=\"margin:5px 5px\" src=\"" + "files/%s" + "\" width=\"" + "%s" + "\" height=\"" + "%s" + "\">", f.Name(), size, size)
       w.Write([]byte(img))
     }
   }
@@ -30,15 +30,15 @@ func Upload(w http.ResponseWriter, r *http.Request) {
 
 func Resize(w http.ResponseWriter, r *http.Request) {
   if r.Method == "POST" {
-    m.size = r.FormValue("value")
-    if m.size == "" {
+    size = r.FormValue("value")
+    if size == "" {
       fmt.Println("Empty FormValue")
       return
     }
 
     files, _ := ioutil.ReadDir("./files")
     for _, f := range files {
-      img := fmt.Sprintf("<img border=\"5\" style=\"margin:5px 5px\" src=\"" + "files/%s" + "\" width=\"" + "%s" + "\" height=\"" + "%s" + "\">", f.Name(), m.size, m.size)
+      img := fmt.Sprintf("<img border=\"5\" style=\"margin:5px 5px\" src=\"" + "files/%s" + "\" width=\"" + "%s" + "\" height=\"" + "%s" + "\">", f.Name(), size, size)
       w.Write([]byte(img))
     }
   }
