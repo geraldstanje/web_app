@@ -3,14 +3,19 @@ package authentication
 import (
   "net/http"
   s "github.com/geraldstanje/web_app/webserver/session"
+  d "github.com/geraldstanje/web_app/webserver/db"
 )
 
 func Login(response http.ResponseWriter, request *http.Request) {
-  name := request.FormValue("username")
+  user := request.FormValue("username")
   pass := request.FormValue("password")
   redirectTarget := "/"
-  if name != "" && pass != "" {
-    // .. check credentials ..
+
+  if user != "" && pass != "" {
+    if !d.IsCorrectLogin(user, pass) {
+      http.Redirect(response, request, redirectTarget, 302)
+      return
+    }
     s.SetSession(name, response)
     redirectTarget = "/musicalbums"
   }
