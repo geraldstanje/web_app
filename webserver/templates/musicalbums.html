@@ -20,10 +20,6 @@ function uploadFile() {
     var fd = new FormData();
     fd.append("TheFile", document.getElementById('TheFile').files[0]);
     var xhr = new XMLHttpRequest();
-    //xhr.upload.addEventListener("progress", uploadProgress, false);
-    //xhr.addEventListener("load", uploadComplete, false);
-    //xhr.addEventListener("error", uploadFailed, false);
-    //xhr.addEventListener("abort", uploadCanceled, false);
     xhr.open("POST", "/upload");
     xhr.onreadystatechange = function() {
       if (xhr.readyState == 4 && xhr.status == 200) {
@@ -37,28 +33,7 @@ function uploadFile() {
 }
 
 function mycallback(data) {
-  //alert(data);
-  //$('#result').html(data);
   document.getElementById("result").innerHTML = data;
-}
-
-function uploadProgress(event) {
-  //if (evt.lengthComputable) {
-  //  var percentComplete = Math.round(event.loaded * 100 / event.total);
-  //  document.getElementById('progressNumber').innerHTML = percentComplete.toString() + '%';
-  //}
-}
-
-function uploadComplete(event) {
-  //document.getElementById('progressNumber').innerHTML = 'Upload Complete for ' + fileName;
-}
-
-function uploadFailed(event) {
-  //document.getElementById('progressNumber').innerHTML = 'Error';
-}
-
-function uploadCanceled(event) {
-  //document.getElementById('progressNumber').innerHTML = 'Upload canceled';
 }
 
 function resizeAlbumCover(data) {
@@ -79,7 +54,6 @@ function resizeAlbumCover(data) {
 }
 
 window.onload = function() {
-//jQuery(function($){
   resizeAlbumCover(fader.value);
 }
 </script>
@@ -108,9 +82,6 @@ window.onload = function() {
     <input type="file" name="TheFile" id="TheFile" onchange="fileSelected()" style="width: 600px; height: 40px; background: white;"><BR>
   </div>
 </div>
-
-<!-- <div id="progressNumber"></div> -->
-
 <div id='result'></div>
 </body>
 </html>
