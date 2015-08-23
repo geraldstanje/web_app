@@ -162,6 +162,11 @@ window.onload = function() {
 </div>
 -->
 
+<small>User: %s</small>
+<form method="post" action="/logout">
+    <button type="submit">Logout</button>
+</form>
+
 <div class="row">
   <div class="col-sm-4" style="width: 50px; float: left;">
     <label for=fader>Size:</label>
