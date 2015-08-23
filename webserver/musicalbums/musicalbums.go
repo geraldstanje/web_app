@@ -72,7 +72,7 @@ func Resize(w http.ResponseWriter, r *http.Request) {
 		size = r.FormValue("value")
 		if size == "" {
 			log.Println("[webserver] " + "Empty FormValue")
-			http.Error(w, err.Error(), http.StatusInternalServerError)
+			http.Error(w, "Empty FormValue", http.StatusInternalServerError)
 		}
 
 		files, _ := ioutil.ReadDir("./files")
