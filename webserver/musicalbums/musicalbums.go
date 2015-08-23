@@ -164,6 +164,9 @@ window.onload = function() {
 </body>
 </html>
 `
+type User struct {
+  userName string
+}
 
 func MusicAlbums(w http.ResponseWriter, req *http.Request) {
   userName := s.GetUserName(req)
@@ -172,14 +175,11 @@ func MusicAlbums(w http.ResponseWriter, req *http.Request) {
     //t := template.New("some template") // Create a template.
     //t, _ = t.ParseFiles("tmpl/welcome.html", nil)  // Parse template file.
     //user := GetUser() // Get current user infomration.
-    t, err := template.New("foo").Parse(musicAlbumsPage)
-    if err != nil {
-      log.Fatal(err)
-    }
-    err = t.Execute(w, userName)  // merge.
-    if err != nil {
-      log.Fatal(err)
-    }
+
+    user := User{userName: userName)
+
+    t, _ := template.New("foo").Parse(musicAlbumsPage)
+    t.Execute(w, user)  // merge.
     //fmt.Fprintf(w, musicAlbumsPage, userName)
   } else {
     http.Redirect(w, req, "/", 302)
