@@ -12,7 +12,7 @@ import (
 var size = "10"
 
 type User struct {
-	Username string
+	User string
 }
 
 type Image struct {
@@ -33,8 +33,8 @@ func renderImgTemplate(w http.ResponseWriter, filename string, width string, hei
 	return err
 }
 
-func renderMusicAlbumsTemplate(w http.ResponseWriter, username string) error {
-	user := User{Username: username}
+func renderMusicAlbumsTemplate(w http.ResponseWriter, user string) error {
+	user := User{User: user}
 	t, err := template.ParseFiles("templates/musicalbums.html")
 	if err != nil {
 		return err
@@ -86,9 +86,9 @@ func Resize(w http.ResponseWriter, r *http.Request) {
 }
 
 func MusicAlbums(w http.ResponseWriter, req *http.Request) {
-	username := s.GetUserName(req)
-	if username != "" {
-		err := renderMusicAlbumsTemplate(w, username)
+	user := s.GetUserName(req)
+	if email != "" {
+		err := renderMusicAlbumsTemplate(w, user)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}

@@ -7,7 +7,7 @@ import (
 )
 
 func Login(w http.ResponseWriter, r *http.Request) {
-	user := r.FormValue("username")
+	user := r.FormValue("email")
 	pass := r.FormValue("password")
 	redirectTarget := "/"
 
