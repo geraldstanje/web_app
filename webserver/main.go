@@ -11,15 +11,15 @@ import (
 
 var router = mux.NewRouter()
 
-func indexHandler(response http.ResponseWriter, request *http.Request) {
-	response.Header().Set("Content-type", "text/html")
+func indexHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-type", "text/html")
 	webpage, err := ioutil.ReadFile("templates/index.html")
 
 	if err != nil {
-		http.Error(response, fmt.Sprintf("index.html file error %v", err), 500)
+		http.Error(w, fmt.Sprintf("index.html file error %v", err), 500)
 	}
 
-	fmt.Fprint(response, string(webpage))
+	fmt.Fprint(w, string(webpage))
 }
 
 func LoginHandler(w http.ResponseWriter, r *http.Request) {

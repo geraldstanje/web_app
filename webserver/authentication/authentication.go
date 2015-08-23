@@ -6,19 +6,19 @@ import (
 	"net/http"
 )
 
-func Login(response http.ResponseWriter, request *http.Request) {
-	user := request.FormValue("username")
-	pass := request.FormValue("password")
+func Login(w http.ResponseWriter, r *http.Request) {
+	user := r.FormValue("username")
+	pass := r.FormValue("password")
 	redirectTarget := "/"
 
 	if user != "" && pass != "" && d.IsValidLogin(user, pass) {
-		s.SetSession(user, response)
+		s.SetSession(user, w)
 		redirectTarget = "/musicalbums"
   }
-	http.Redirect(response, request, redirectTarget, 302)
+	http.Redirect(w, r, redirectTarget, 302)
 }
 
-func Logout(response http.ResponseWriter, request *http.Request) {
-	s.ClearSession(response)
-	http.Redirect(response, request, "/", 302)
+func Logout(w http.ResponseWriter, r *http.Request) {
+	s.ClearSession(w)
+	http.Redirect(w, r, "/", 302)
 }

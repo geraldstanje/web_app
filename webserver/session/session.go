@@ -5,11 +5,9 @@ import (
 	"net/http"
 )
 
-var cookieHandler = securecookie.New(
-	securecookie.GenerateRandomKey(64),
-	securecookie.GenerateRandomKey(32))
+var cookieHandler = securecookie.New(securecookie.GenerateRandomKey(64),securecookie.GenerateRandomKey(32))
 
-func SetSession(userName string, response http.ResponseWriter) {
+func SetSession(userName string, w http.ResponseWriter) {
 	value := map[string]string{
 		"user": userName,
 	}
@@ -19,22 +17,22 @@ func SetSession(userName string, response http.ResponseWriter) {
 			Value: encoded,
 			Path:  "/",
 		}
-		http.SetCookie(response, cookie)
+		http.SetCookie(w, cookie)
 	}
 }
 
-func ClearSession(response http.ResponseWriter) {
+func ClearSession(w http.ResponseWriter) {
 	cookie := &http.Cookie{
 		Name:   "session",
 		Value:  "",
 		Path:   "/",
 		MaxAge: -1,
 	}
-	http.SetCookie(response, cookie)
+	http.SetCookie(r, cookie)
 }
 
-func GetUserName(request *http.Request) (userName string) {
-	if cookie, err := request.Cookie("session"); err == nil {
+func GetUserName(r *http.Request) (userName string) {
+	if cookie, err := r.Cookie("session"); err == nil {
 		cookieValue := make(map[string]string)
 		if err = cookieHandler.Decode("session", cookie.Value, &cookieValue); err == nil {
 			userName = cookieValue["user"]
