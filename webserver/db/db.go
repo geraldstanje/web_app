@@ -38,10 +38,10 @@ func IsValidLogin(username string, password string) bool {
       log.Fatal(err)
     }
     
-    fmt.Println("[database] username: " + len(username))
-    fmt.Println("[database] user: " + len(user))
-    fmt.Println("[database] password: " + len(password))
-    fmt.Println("[database] pass: " + len(pass))
+    fmt.Sprintf("[database] username: %d", len(username))
+    fmt.Sprintf("[database] user: %d", len(user))
+    fmt.Sprintf("[database] password: %d", len(password))
+    fmt.Sprintf("[database] pass: %d", len(pass))
 
     if (username == user) && (password == pass) {
       fmt.Println("[database] login correct...")
