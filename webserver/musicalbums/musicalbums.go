@@ -45,18 +45,11 @@ func Resize(w http.ResponseWriter, r *http.Request) {
   }
 }
 
-func HomeHandler(w http.ResponseWriter, req *http.Request) {
-  const homePage = `
+func MusicAlbums(w http.ResponseWriter, req *http.Request) {
+  const musicAlbumsPage = `
 <!DOCTYPE html>
 <html>
 <head>
-<!--
-<script src="https://code.jquery.com/jquery.min.js"></script>
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-<script src="https://code.jquery.com/jquery-2.1.4.js"></script>
-<script src="http://dn-xcdn-us.qbox.me/libs/bootstrap-filestyle/1.1.2/bootstrap-filestyle-min.js"></script>
--->
 <script type="text/javascript">
 var fileName = '';
 function fileSelected() {
@@ -145,21 +138,6 @@ window.onload = function() {
 </head>
 <body>
 
-<!--
-<div class="row">
-  <div class="col-sm-4" style="width: 50px; float: left;">
-    <label for=fader>Size</label>
-  </div>
-  <div class="col-sm-4">
-    <input type="range" min="50" max="300" value="10" id="fader" step="10" oninput="resizeAlbumCover(value)" style="width: 150px; float: left; margin: 5px;">
-  </div>
-  <div class="col-sm-4" style="width: 500px;">
-    <input type="file" name="TheFile" id="TheFile" onchange="fileSelected()" style="width: 600px; height: 40px; background: white;"><BR>
-    <input type="file" id="TheFile" class="filestyle" data-size="sm" onchange="fileSelected()"> 
-  </div>
-</div>
--->
-
 <small>User: %s</small>
 <form method="post" action="/logout">
     <button type="submit">Logout</button>
@@ -183,13 +161,6 @@ window.onload = function() {
 <!-- <div id="progressNumber"></div> -->
 
 <div id='result'></div>
-<!--
-<script>
-  $(":file").filestyle({
-    buttonText: "Album Cover"
-  });
-</script>
--->
 </body>
 </html>
   `
@@ -197,7 +168,7 @@ window.onload = function() {
   userName := s.GetUserName(req)
   fmt.Println("userName: " + userName)
   if userName != "" {
-    fmt.Fprintf(w, homePage, userName)
+    fmt.Fprintf(w, musicAlbumsPage, userName)
   } else {
     http.Redirect(w, req, "/", 302)
   }
