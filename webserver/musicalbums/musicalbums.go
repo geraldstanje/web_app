@@ -23,18 +23,18 @@ type Image struct {
 
 const imageLink = `<img border=\"5\" style=\"margin:5px 5px\" src=\"{{.Filename}}\" width=\"{{.Width}}\" height=\"{{.Height}}\">`
 
-func renderImgTemplate(filename string, width string, height string) (string, error) {
+func renderImgTemplate(w *io.Writer, filename string, width string, height string) error {
   img := Image{Filename: filename, Width: width, Height: height}
   t, err := template.New("imagelink").Parse(imageLink)
   if err != nil {
-    return "", err
+    return err
   }
   var out string
-  err = t.Execute(out, img)
+  err = t.Execute(w, img)
   if err != nil {
-    return "", err
+    return err
   }
-  return out, nil
+  return nil
 }
 
 func Upload(w http.ResponseWriter, r *http.Request) {
@@ -55,7 +55,7 @@ func Upload(w http.ResponseWriter, r *http.Request) {
         log.Fatal(err)
       }
       //img := fmt.Sprintf("<img border=\"5\" style=\"margin:5px 5px\" src=\""+"files/%s"+"\" width=\""+"%s"+"\" height=\""+"%s"+"\">", f.Name(), size, size)
-			w.Write([]byte(img))
+			//w.Write([]byte(img))
 		}
 	}
 }
