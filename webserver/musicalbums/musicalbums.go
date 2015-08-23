@@ -30,8 +30,6 @@ func Upload(w http.ResponseWriter, r *http.Request) {
  }
 
 func Resize(w http.ResponseWriter, r *http.Request) {
-  fmt.Println(size)
-
   if r.Method == "POST" {
     size = r.FormValue("value")
     if size == "" {
@@ -166,7 +164,7 @@ window.onload = function() {
 <small>User: %s</small>
 <form method="post" action="/logout">
     <button type="submit">Logout</button>
-</form>
+</form><BR>
 
 <div class="row">
   <div class="col-sm-4" style="width: 50px; float: left;">
@@ -198,6 +196,7 @@ window.onload = function() {
   `
 
   userName := s.GetUserName(req)
+  fmt.Println("userName: " + userName)
   if userName != "" {
     fmt.Fprintf(w, text, userName)
   } else {
