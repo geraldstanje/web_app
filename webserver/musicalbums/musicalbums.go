@@ -1,6 +1,7 @@
-package musicalbumstore
+package musicalbums
 
 import (
+  s "github.com/geraldstanje/web_app/webserver/session"
   "io/ioutil"
   "net/http"
   "log"
@@ -47,7 +48,7 @@ func Resize(w http.ResponseWriter, r *http.Request) {
 }
 
 func HomeHandler(w http.ResponseWriter, req *http.Request) {
-  w.Header().Set("Content-Type", "text/html")
+  //w.Header().Set("Content-Type", "text/html")
   var text = `
 <!DOCTYPE html>
 <html>
@@ -195,5 +196,13 @@ window.onload = function() {
 </body>
 </html>
   `
-  w.Write([]byte(text))
+
+  userName := s.GetUserName(request)
+  if userName != "" {
+    fmt.Fprintf(response, text, userName)
+  } else {
+    http.Redirect(response, request, "/", 302)
+  }
+
+  //w.Write([]byte(text))
 }

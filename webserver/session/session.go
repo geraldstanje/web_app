@@ -32,3 +32,13 @@ func ClearSession(response http.ResponseWriter) {
   }
   http.SetCookie(response, cookie)
 }
+
+func GetUserName(request *http.Request) (userName string) {
+  if cookie, err := request.Cookie("session"); err == nil {
+    cookieValue := make(map[string]string)
+    if err = cookieHandler.Decode("session", cookie.Value, &cookieValue); err == nil {
+      userName = cookieValue["name"]
+    }
+  }
+  return userName
+}
