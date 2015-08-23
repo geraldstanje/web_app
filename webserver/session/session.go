@@ -28,7 +28,7 @@ func ClearSession(w http.ResponseWriter) {
 		Path:   "/",
 		MaxAge: -1,
 	}
-	http.SetCookie(r, cookie)
+	http.SetCookie(w, cookie)
 }
 
 func GetUserName(r *http.Request) (userName string) {
