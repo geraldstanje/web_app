@@ -7,11 +7,10 @@ import (
 )
 
 func Login(response http.ResponseWriter, request *http.Request) {
-  name := request.FormValue("name")
+  name := request.FormValue("username")
   pass := request.FormValue("password")
   redirectTarget := "/"
   if name != "" && pass != "" {
-    fmt.Println("login...")
     // .. check credentials ..
     s.SetSession(name, response)
     redirectTarget = "/musicalbums"
