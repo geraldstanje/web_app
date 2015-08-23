@@ -36,9 +36,11 @@ func IsValidLogin(username string, password string) bool {
     }
     
     if username == user && password == pass {
+      fmt.Println("[database] login correct...")
       return true
     }
   }
 
+  fmt.Println("[database] login failed...")
   return false
 }
