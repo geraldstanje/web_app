@@ -16,21 +16,31 @@ type User struct {
 }
 
 type Image struct {
-  Filename  string
-  Width   string
-  Height string
+	Filename string
+	Width    string
+	Height   string
 }
 
 const imageLink = `<img border="5" style="margin:5px 5px" src="files/{{.Filename}}" width="{{.Width}}" height="{{.Height}}">`
 
 func renderImgTemplate(w http.ResponseWriter, filename string, width string, height string) error {
-  img := Image{Filename: filename, Width: width, Height: height}
-  t, err := template.New("imagelink").Parse(imageLink)
-  if err != nil {
-    return err
-  }
-  err = t.Execute(w, img)
-  return err
+	img := Image{Filename: filename, Width: width, Height: height}
+	t, err := template.New("imagelink").Parse(imageLink)
+	if err != nil {
+		return err
+	}
+	err = t.Execute(w, img)
+	return err
+}
+
+func renderMusicAlbumsTemplate(w http.ResponseWriter) {
+	user := User{Username: username}
+	t, err := template.ParseFiles("templates/musicalbums.html")
+	if err != nil {
+		return err
+	}
+	err = t.Execute(w, user)
+	return err
 }
 
 func Upload(w http.ResponseWriter, r *http.Request) {
@@ -47,11 +57,9 @@ func Upload(w http.ResponseWriter, r *http.Request) {
 		files, _ := ioutil.ReadDir("./files")
 		for _, f := range files {
 			err = renderImgTemplate(w, f.Name(), size, size)
-      if err != nil {
-        log.Fatal(err)
-      }
-      //img := fmt.Sprintf("<img border=\"5\" style=\"margin:5px 5px\" src=\""+"files/%s"+"\" width=\""+"%s"+"\" height=\""+"%s"+"\">", f.Name(), size, size)
-			//w.Write([]byte(img))
+			if err != nil {
+				log.Fatal(err)
+			}
 		}
 	}
 }
@@ -66,8 +74,10 @@ func Resize(w http.ResponseWriter, r *http.Request) {
 
 		files, _ := ioutil.ReadDir("./files")
 		for _, f := range files {
-			img := fmt.Sprintf("<img border=\"5\" style=\"margin:5px 5px\" src=\""+"files/%s"+"\" width=\""+"%s"+"\" height=\""+"%s"+"\">", f.Name(), size, size)
-			w.Write([]byte(img))
+			err := renderImgTemplate(w, f.Name(), size, size)
+			if err != nil {
+				log.Fatal(err)
+			}
 		}
 	}
 }
@@ -75,12 +85,7 @@ func Resize(w http.ResponseWriter, r *http.Request) {
 func MusicAlbums(w http.ResponseWriter, req *http.Request) {
 	username := s.GetUserName(req)
 	if username != "" {
-		user := User{Username: username}
-		musicAlbumsTemplate, err := template.ParseFiles("templates/musicalbums.html")
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-		}
-		err = musicAlbumsTemplate.Execute(w, user)
+		err := renderMusicAlbumsTemplate(w)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
