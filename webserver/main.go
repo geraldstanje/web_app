@@ -44,7 +44,7 @@ func resizeHandler(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	http.Handle("/", router)
-	//http.Handle("/files/", http.StripPrefix("/files/", http.FileServer(http.Dir("files/"))))
+	http.Handle("/files/", http.StripPrefix("/files/", http.FileServer(http.Dir("files/"))))
 	router.HandleFunc("/", indexHandler)
 	router.HandleFunc("/musicalbums", musicAlbumsHandler)
 	router.HandleFunc("/upload", uploadHandler)
