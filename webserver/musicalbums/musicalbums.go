@@ -11,7 +11,7 @@ import (
 
 var size = "10"
 
-type User struct {
+type UserAccount struct {
 	User string
 }
 
@@ -34,12 +34,12 @@ func renderImgTemplate(w http.ResponseWriter, filename string, width string, hei
 }
 
 func renderMusicAlbumsTemplate(w http.ResponseWriter, user string) error {
-	user := User{User: user}
+	useraccount := UserAccount{User: user}
 	t, err := template.ParseFiles("templates/musicalbums.html")
 	if err != nil {
 		return err
 	}
-	err = t.Execute(w, user)
+	err = t.Execute(w, useraccount)
 	return err
 }
 
