@@ -24,7 +24,7 @@ type Image struct {
 const imageLink = `<img border=\"5\" style=\"margin:5px 5px\" src=\"{{.Filename}}\" width=\"{{.Width}}\" height=\"{{.Height}}\">`
 
 func renderImgTemplate(filename string, width string, height string) (string, error) {
-  img := Image{Filename: username, Width: width, Height: height}
+  img := Image{Filename: filename, Width: width, Height: height}
   t, err := template.New("imagelink").Parse(imageLink)
   if err != nil {
     return "", err
