@@ -30,7 +30,7 @@ func renderImgTemplate(filename string, width string, height string) (string, er
     return "", err
   }
   var out string
-  err = t.ExecuteTemplate(out, img)
+  err = t.Execute(out, img)
   if err != nil {
     return "", err
   }
