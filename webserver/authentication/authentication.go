@@ -1,7 +1,6 @@
 package authentication
 
 import (
-  "fmt"
   "net/http"
   s "github.com/geraldstanje/web_app/webserver/session"
 )
