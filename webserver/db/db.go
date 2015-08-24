@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	_ "github.com/lib/pq"
 	"log"
+  "strings"
 )
 
 func IsValidRegistration(user string, password string) bool {
