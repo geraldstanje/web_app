@@ -29,6 +29,8 @@ $ ./docker.sh cleanall
 4. Add better error handling in webserver and postgres
 5. Add testcases
 
+---
+
 #### Postgres Infos:
 
 ##### Get boot2docker IP
