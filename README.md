@@ -43,3 +43,5 @@ $ sudo rm -rf /var/volume1
   * CREATE TABLE users (id UUID PRIMARY KEY, email CITEXT(200) UNIQUE, password TEXT NOT NULL);
   * CREATE TABLE images (id UUID PRIMARY KEY, user_id UUID REFERENCES users, url TEXT);
 3. Store/upload the images to a CDN server
+4. Add better error handling in webserver and postgres
+5. Add testcases
