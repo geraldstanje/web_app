@@ -3,15 +3,15 @@
 ## Install and Run:
 
 ### Build docker images
-This builds the webserver and postgres db <br />
+This builds the webserver and postgres docker image <br />
 $ ./docker.sh build
 
 ### Run docker containers
-This starts the webserver and postgres db <br />
+This starts the webserver and postgres docker container <br />
 $ ./docker.sh run
 
 ### Display logs:
-This shows the entire log <br />
+This shows the all logs within the webserver and postgres docker container <br />
 $ ./docker.sh logs
 
 ### Stop docker containers
