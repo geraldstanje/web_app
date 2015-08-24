@@ -10,6 +10,9 @@ function submit() {
 
 function login(email, pass) {
   try {
+    console.log(email);
+    console.log(pass);
+
     var fd = new FormData();
     fd.append("email", email);
     fd.append("password", pass);
