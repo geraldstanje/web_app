@@ -6,6 +6,30 @@ import (
 	"log"
 )
 
+func IsValidRegistration(user string, password string) bool {
+	log.Println("[database] Connecting to database...")
+	db, err := sql.Open("postgres", "postgres://admin:changeme@192.168.59.103:5432/admin?sslmode=disable")
+	defer db.Close()
+	if err != nil {
+		log.Fatal(err)
+	}
+	err = db.Ping()
+	if err != nil {
+		log.Fatal(err)
+	}
+	log.Println("[database] Connected successfully.")
+
+	err := db.QueryRow("INSERT INTO account VALUES($1, $2)", user, password)
+	if err.Code.Name() == "unqiue_violation" {
+		log.Println("[database] registeration failed...")
+		return false
+	} else if err != nil {
+		log.Fatal(err)
+	}
+
+	return true
+}
+
 func IsValidLogin(user string, password string) bool {
 	log.Println("[database] Connecting to database...")
 	db, err := sql.Open("postgres", "postgres://admin:changeme@192.168.59.103:5432/admin?sslmode=disable")

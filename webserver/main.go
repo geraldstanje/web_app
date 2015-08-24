@@ -22,6 +22,10 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, string(webpage))
 }
 
+func RegisterHandler(w http.ResponseWriter, r *http.Request) {
+  a.Register(w, r)
+}
+
 func LoginHandler(w http.ResponseWriter, r *http.Request) {
 	a.Login(w, r)
 }
@@ -49,6 +53,7 @@ func main() {
 	router.HandleFunc("/musicalbums", musicAlbumsHandler)
 	router.HandleFunc("/upload", uploadHandler)
 	router.HandleFunc("/resize", resizeHandler)
+  router.HandleFunc("/register", LoginHandler).Methods("POST")
 	router.HandleFunc("/login", LoginHandler).Methods("POST")
 	router.HandleFunc("/logout", LogoutHandler).Methods("POST")
 	http.ListenAndServe(":8080", nil)

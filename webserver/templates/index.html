@@ -2,14 +2,10 @@
 <html>
 <head>
 <script type="text/javascript">
-function submit() {
-  var email = document.getElementById('email').value;
-  var pass = document.getElementById('password').value;
-  login(email, pass);
-}
-
 function login(email, pass) {
   try {
+    var email = document.getElementById('email').value;
+    var pass = document.getElementById('password').value;
     var fd = new FormData();
     fd.append("email", email);
     fd.append("password", pass);
@@ -17,7 +13,7 @@ function login(email, pass) {
     xhr.open("POST", "/login");
     xhr.onreadystatechange = function() {
       if (xhr.readyState == 4 && xhr.status == 200) {
-        mycallback(xhr.responseText); // Another callback here
+        logincallback(xhr.responseText); // Another callback here
       }
     };
     xhr.send(fd);
@@ -26,7 +22,27 @@ function login(email, pass) {
   }
 }
 
-function mycallback(data) {
+function register(email, pass) {
+  try {
+    var email = document.getElementById('email').value;
+    var pass = document.getElementById('password').value;
+    var fd = new FormData();
+    fd.append("email", email);
+    fd.append("password", pass);
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/register");
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState == 4 && xhr.status == 200) {
+        registercallback(xhr.responseText); // Another callback here
+      }
+    };
+    xhr.send(fd);
+  } catch(err) {
+    console.log("error: " + err.message);
+  }
+}
+
+function logincallback(data) {
   try {
     var obj = JSON.parse(data);
 
@@ -40,18 +56,28 @@ function mycallback(data) {
     console.log("error: " + err.message);
   }
 }
+
+function registercallback(data) {
+  try {
+    var obj = JSON.parse(data);
+    document.getElementById("result").innerHTML = obj.info;
+  } catch(err) {
+    console.log("error: " + err.message);
+  }
+}
 </script>
 
 <meta charset="utf-8">
 <title>Music Album Collections</title>
 </head>
 <body>
-<h1>Login</h1>
+<h1>Login/Register</h1>
 <label for="email">Email</label>
 <input type="text" id="email" name="email">
 <label for="password">Password</label>
 <input type="password" id="password" name="password">
-<button type="submit" onclick="submit()">Login</button>
-<button type="submit" onclick="submit()">Register</button>
+<button type="submit" onclick="login()">Login</button>
+<button type="submit" onclick="register()">Register</button>
+<br>
 <div id='result'></div>
 </html>

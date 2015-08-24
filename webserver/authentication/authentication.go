@@ -14,6 +14,26 @@ type Message struct {
 	Redirect string `json:"redirect"`
 }
 
+func Register(w http.ResponseWriter, r *http.Request) {
+	user := r.FormValue("email")
+	pass := r.FormValue("password")
+	succeed := false
+	info := ""
+
+	if user != "" && pass != "" && d.IsValidRegistration(user, pass) {
+		succeed = true
+	} else {
+		info = "Registration failed, user already registered"
+	}
+
+	m := Message{succeed, info, ""}
+
+	//w.Header().Set("Content-Type", "application/json")
+	if err := json.NewEncoder(w).Encode(m); err != nil {
+		log.Println("[webserver] " + err.Error())
+	}
+}
+
 func Login(w http.ResponseWriter, r *http.Request) {
 	user := r.FormValue("email")
 	pass := r.FormValue("password")
