@@ -25,7 +25,7 @@ function login(email, pass) {
     };
     xhr.send(fd);
   } catch(err) {
-    document.getElementById("fileForm").submit();
+    //
   }
 }
 
@@ -43,6 +43,6 @@ function mycallback(data) {
 <input type="text" id="email" name="email">
 <label for="password">Password</label>
 <input type="password" id="password" name="password">
-<button type="submit" onchange="submit()">Login</button>
+<button type="submit" onclick="submit()">Login</button>
 <div id='result'></div>
 </html>
