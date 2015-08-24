@@ -23,7 +23,7 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func RegisterHandler(w http.ResponseWriter, r *http.Request) {
-  a.Register(w, r)
+	a.Register(w, r)
 }
 
 func LoginHandler(w http.ResponseWriter, r *http.Request) {
@@ -53,7 +53,7 @@ func main() {
 	router.HandleFunc("/musicalbums", musicAlbumsHandler)
 	router.HandleFunc("/upload", uploadHandler)
 	router.HandleFunc("/resize", resizeHandler)
-  router.HandleFunc("/register", RegisterHandler).Methods("POST")
+	router.HandleFunc("/register", RegisterHandler).Methods("POST")
 	router.HandleFunc("/login", LoginHandler).Methods("POST")
 	router.HandleFunc("/logout", LogoutHandler).Methods("POST")
 	http.ListenAndServe(":8080", nil)
