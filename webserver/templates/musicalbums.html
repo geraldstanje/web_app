@@ -10,7 +10,7 @@ function fileSelected() {
       fileName = file.name;
     }
   } catch(err) {
-    //nothing
+    console.log("error: " + err.message);
   }
   uploadFile();
 }
@@ -23,7 +23,7 @@ function uploadFile() {
     xhr.open("POST", "/upload");
     xhr.onreadystatechange = function() {
       if (xhr.readyState == 4 && xhr.status == 200) {
-        mycallback(xhr.responseText); // Another callback here
+        mycallback(xhr.responseText);
       }
     };
     xhr.send(fd);
@@ -44,12 +44,12 @@ function resizeAlbumCover(data) {
     xhr.open("POST", "/resize");
     xhr.onreadystatechange = function() {
       if (xhr.readyState == 4 && xhr.status == 200) {
-        mycallback(xhr.responseText); // Another callback here
+        mycallback(xhr.responseText);
       }
     };
     xhr.send(fd);
   } catch(err) {
-    //
+    console.log("error: " + err.message);
   }
 }
 
@@ -66,7 +66,7 @@ window.onload = function() {
 <small>User: {{.User}}</small>
 <form method="post" action="/logout">
     <button type="submit">Logout</button>
-</form><BR>
+</form><br><br>
 
 <div class="row">
   <div class="col-sm-4" style="width: 50px; float: left;">
