@@ -18,7 +18,7 @@ const (
 func IsValidRegistration(user string, password string) bool {
 	log.Println("[database] Connecting to database...")
 
-	dbinfo := fmt.Sprintf("user=%s password=%s dbname=%s host=%s sslmode=disable", DB_USER, DB_PASSWORD, DB_HOST, DB_NAME)
+	dbinfo := fmt.Sprintf("user=%s password=%s dbname=%s host=%s sslmode=disable", DB_USER, DB_PASSWORD, DB_NAME, DB_HOST)
 	db, err := sql.Open("postgres", dbinfo)
 	defer db.Close()
 	if err != nil {
@@ -46,7 +46,7 @@ func IsValidRegistration(user string, password string) bool {
 func IsValidLogin(user string, password string) bool {
 	log.Println("[database] Connecting to database...")
 
-	dbinfo := fmt.Sprintf("user=%s password=%s dbname=%s host=%s sslmode=disable", DB_USER, DB_PASSWORD, DB_HOST, DB_NAME)
+	dbinfo := fmt.Sprintf("user=%s password=%s dbname=%s host=%s sslmode=disable", DB_USER, DB_PASSWORD, DB_NAME, DB_HOST)
 	db, err := sql.Open("postgres", dbinfo)
 	defer db.Close()
 	if err != nil {
