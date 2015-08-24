@@ -6,7 +6,7 @@
 This builds the webserver and postgres db <br />
 $ ./docker.sh build
 
-### Run docker images
+### Run docker containers
 This starts the webserver and postgres db <br />
 $ ./docker.sh run
 
@@ -14,10 +14,10 @@ $ ./docker.sh run
 This shows the entire log <br />
 $ ./docker.sh logs
 
-### Stop docker images
+### Stop docker containers
 $ ./docker.sh stopall
 
-### Clean docker images
+### Remove docker containers
 $ ./docker.sh cleanall
 
 ## Postgres Infos:
