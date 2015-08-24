@@ -1,40 +1,40 @@
 package authentication
 
 import (
-  "encoding/json"
-  "log"
+	"encoding/json"
 	d "github.com/geraldstanje/web_app/webserver/db"
 	s "github.com/geraldstanje/web_app/webserver/session"
+	"log"
 	"net/http"
 )
 
 type Message struct {
-    Succeed bool `json:"succeed"`
-    Info string `json:"info"`
-    Redirect string `json:"redirect"`
+	Succeed  bool   `json:"succeed"`
+	Info     string `json:"info"`
+	Redirect string `json:"redirect"`
 }
 
 func Login(w http.ResponseWriter, r *http.Request) {
 	user := r.FormValue("email")
 	pass := r.FormValue("password")
-  succeed := false
-  info := ""
-  redirectTarget := "/"
+	succeed := false
+	info := ""
+	redirectTarget := "/"
 
 	if user != "" && pass != "" && d.IsValidLogin(user, pass) {
 		s.SetSession(user, w)
-    succeed = true
-    redirectTarget = "/musicalbums"
+		succeed = true
+		redirectTarget = "/musicalbums"
 	} else {
-    info = "Invalid user or password"
-  }
+		info = "Invalid user or password"
+	}
 
-  m := Message{succeed, info, redirectTarget}
+	m := Message{succeed, info, redirectTarget}
 
-  //w.Header().Set("Content-Type", "application/json")
-  if err := json.NewEncoder(w).Encode(m); err != nil {
-    log.Println("[webserver] " + err.Error())
-  }
+	//w.Header().Set("Content-Type", "application/json")
+	if err := json.NewEncoder(w).Encode(m); err != nil {
+		log.Println("[webserver] " + err.Error())
+	}
 }
 
 func Logout(w http.ResponseWriter, r *http.Request) {

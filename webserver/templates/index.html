@@ -22,20 +22,22 @@ function login(email, pass) {
     };
     xhr.send(fd);
   } catch(err) {
-    //
+    console.log("error: " + err.message);
   }
 }
 
 function mycallback(data) {
-  console.log(data);
+  try {
+    var obj = JSON.parse(data);
 
-  var obj = JSON.parse(data);
-
-  if (obj.succeed) {
-    window.location.replace(obj.redirect);
-  }
-  else {
-    document.getElementById("result").innerHTML = obj.info;
+    if (obj.succeed) {
+      window.location.replace(obj.redirect);
+    }
+    else {
+      document.getElementById("result").innerHTML = obj.info;
+    }
+  } catch(err) {
+    console.log("error: " + err.message);
   }
 }
 </script>
