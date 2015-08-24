@@ -20,23 +20,6 @@ $ ./docker.sh stopall
 ### Remove docker containers
 $ ./docker.sh cleanall
 
-## Postgres Infos:
-
-### Get boot2docker IP
-$ boot2docker ip <br />
- The VM's Host only interface IP address is: 192.168.59.103
-
-### Start PostgreSQL interactive terminal
-$ psql -h 192.168.59.103 -p 5432 -d docker -U admin --password
-
-### Delete the volume for the postgres db
-$ boot2docker ssh <br />
-$ sudo rm -rf /var/lib/postgresql
-
-### Delete the volume for the image directory
-$ boot2docker ssh <br />
-$ sudo rm -rf /var/volume1
-
 ## Next, Next Steps:
 1. Add password authentication strategies: store SHA512 or bcrypt instead of the plain password
 2. create a database table for images, change postgres schema: 
@@ -45,3 +28,20 @@ $ sudo rm -rf /var/volume1
 3. Store/upload the images to a CDN server
 4. Add better error handling in webserver and postgres
 5. Add testcases
+
+###### Postgres Infos:
+
+##### Get boot2docker IP
+$ boot2docker ip <br />
+ The VM's Host only interface IP address is: 192.168.59.103
+
+#### Start PostgreSQL interactive terminal
+$ psql -h 192.168.59.103 -p 5432 -d docker -U admin --password
+
+#### Delete the volume for the postgres db
+$ boot2docker ssh <br />
+$ sudo rm -rf /var/lib/postgresql
+
+#### Delete the volume for the image directory
+$ boot2docker ssh <br />
+$ sudo rm -rf /var/volume1
