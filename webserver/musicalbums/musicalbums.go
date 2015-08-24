@@ -11,11 +11,11 @@ import (
 
 var size = "10"
 
-type UserAccount struct {
+type UserInfo struct {
 	User string
 }
 
-type Image struct {
+type ImageInfo struct {
 	Filename string
 	Width    string
 	Height   string
@@ -24,7 +24,7 @@ type Image struct {
 const imageLink = `<img border="5" style="margin:5px 5px" src="files/{{.Filename}}" width="{{.Width}}" height="{{.Height}}">`
 
 func renderImgTemplate(w http.ResponseWriter, filename string, width string, height string) error {
-	img := Image{Filename: filename, Width: width, Height: height}
+	img := ImageInfo{Filename: filename, Width: width, Height: height}
 	t, err := template.New("imagelink").Parse(imageLink)
 	if err != nil {
 		return err
@@ -34,7 +34,7 @@ func renderImgTemplate(w http.ResponseWriter, filename string, width string, hei
 }
 
 func renderMusicAlbumsTemplate(w http.ResponseWriter, user string) error {
-	useraccount := UserAccount{User: user}
+	useraccount := UserInfo{User: user}
 	t, err := template.ParseFiles("templates/musicalbums.html")
 	if err != nil {
 		return err
@@ -71,7 +71,7 @@ func Resize(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
 		size = r.FormValue("value")
 		if size == "" {
-			log.Println("[webserver] " + "Empty FormValue")
+			log.Println("[webserver] " + "Empty FormValues")
 			http.Error(w, "Empty FormValue", http.StatusInternalServerError)
 		}
 
