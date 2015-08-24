@@ -21,13 +21,14 @@ func IsValidRegistration(user string, password string) bool {
 
 	_, err = db.Query("INSERT INTO account VALUES($1, $2)", user, password)
   log.Println("[database] error: " + err.Error())
-  
+
 	//if err == sql. {
 	//	log.Println("[database] registeration failed...")
 	//	return false
 	//} else 
   if err != nil {
-		log.Fatal(err)
+		return false
+    //log.Fatal(err)
 	}
 
 	return true
