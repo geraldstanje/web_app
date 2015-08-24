@@ -53,7 +53,7 @@ func main() {
 	router.HandleFunc("/musicalbums", musicAlbumsHandler)
 	router.HandleFunc("/upload", uploadHandler)
 	router.HandleFunc("/resize", resizeHandler)
-  router.HandleFunc("/register", LoginHandler).Methods("POST")
+  router.HandleFunc("/register", RegisterHandler).Methods("POST")
 	router.HandleFunc("/login", LoginHandler).Methods("POST")
 	router.HandleFunc("/logout", LogoutHandler).Methods("POST")
 	http.ListenAndServe(":8080", nil)
