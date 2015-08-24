@@ -63,11 +63,6 @@ window.onload = function() {
 </head>
 <body>
 
-<small>User: {{.User}}</small>
-<form method="post" action="/logout">
-    <button type="submit">Logout</button>
-</form><br><br>
-
 <div class="row">
   <div class="col-sm-4" style="width: 50px; float: left;">
     <label for=fader>Size:</label>
@@ -80,6 +75,14 @@ window.onload = function() {
   </div>
   <div class="col-sm-4">
     <input type="file" name="TheFile" id="TheFile" onchange="fileSelected()" style="width: 600px; height: 40px; background: white;"><BR>
+  </div>
+  <div class="col-sm-4">
+      <label for=fader>User: {{.User}}</label>
+  </div>
+  <div class="col-sm-4">
+      <form method="post" action="/logout">
+          <button type="submit">Logout</button>
+      </form>
   </div>
 </div>
 <div id='result'></div>
