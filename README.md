@@ -40,6 +40,6 @@ $ sudo rm -rf /var/volume1
 ## Next, Next Steps:
 1. Add password authentication strategies: store SHA512 or bcrypt instead of the plain password
 2. create a database table for images, change postgres schema: 
-⋅⋅* CREATE TABLE users (id UUID PRIMARY KEY, email CITEXT(200) UNIQUE, password TEXT NOT NULL);
-⋅⋅* CREATE TABLE images (id UUID PRIMARY KEY, user_id UUID REFERENCES users, url TEXT);
+* CREATE TABLE users (id UUID PRIMARY KEY, email CITEXT(200) UNIQUE, password TEXT NOT NULL);
+* CREATE TABLE images (id UUID PRIMARY KEY, user_id UUID REFERENCES users, url TEXT);
 3. Store/upload the images to a CDN server
