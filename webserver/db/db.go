@@ -7,10 +7,10 @@ import (
   "strings"
 )
 
-var dbIp := "192.168.59.103"
-var dbName := "admin"
-var dbUser := "admin"
-var dbPass := "changeme"
+var dbIp = "192.168.59.103"
+var dbName = "admin"
+var dbUser = "admin"
+var dbPass = "changeme"
 
 func IsValidRegistration(user string, password string) bool {
 	log.Println("[database] Connecting to database...")
