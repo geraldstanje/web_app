@@ -10,7 +10,7 @@ import (
 
 type Message struct {
     Succeed bool `json:"succeed"`
-    Error string `json:"error"`
+    Info string `json:"info"`
     Redirect string `json:"redirect"`
 }
 
@@ -18,25 +18,20 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	user := r.FormValue("email")
 	pass := r.FormValue("password")
   succeed := false
-  error := ""
+  info := ""
   redirectTarget := "/"
 
 	if user != "" && pass != "" && d.IsValidLogin(user, pass) {
 		s.SetSession(user, w)
     succeed = true
-    error = "Invalid user or password"
     redirectTarget = "/musicalbums"
-    //http.Redirect(w, r, redirectTarget, 302)
-	} //else {
-    //str := "Invalid username or password"
-    //w.Write([]byte(str))
-	  //http.Redirect(w, r, redirectTarget, 302)
-  //}
+	} else {
+    info = "Invalid user or password"
+  }
 
-  m := Message{succeed, error, redirectTarget}
+  m := Message{succeed, info, redirectTarget}
 
   //w.Header().Set("Content-Type", "application/json")
-  //json.NewEncoder(w).Encode(m)
   if err := json.NewEncoder(w).Encode(m); err != nil {
     log.Println("[webserver] " + err.Error())
   }
