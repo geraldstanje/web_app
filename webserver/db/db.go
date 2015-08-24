@@ -19,7 +19,7 @@ func IsValidRegistration(user string, password string) bool {
 	}
 	log.Println("[database] Connected successfully.")
 
-	err = db.QueryRow("INSERT INTO account VALUES($1, $2)", user, password)
+	_, err = db.Query("INSERT INTO account VALUES($1, $2)", user, password)
 	if err.Code.Name() == "unqiue_violation" {
 		log.Println("[database] registeration failed...")
 		return false
