@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	_ "github.com/lib/pq"
 	"log"
-  "strings"
+	"strings"
 )
 
 var dbIp = "192.168.59.103"
@@ -14,9 +14,7 @@ var dbPass = "changeme"
 
 func IsValidRegistration(user string, password string) bool {
 	log.Println("[database] Connecting to database...")
-  log.Println("[database] " + "postgres://" + dbUser + ":" + dbPass + "@" + dbIp + ":5432/" + dbName + "?sslmode=disable")
-  
-	db, err := sql.Open("postgres", "postgres://" + dbUser + ":" + dbPass + "@" + dbIp + ":5432/" + dbName + "?sslmode=disable")
+	db, err := sql.Open("postgres", "postgres://"+dbUser+":"+dbPass+"@"+dbIp+":5432/"+dbName+"?sslmode=disable")
 	defer db.Close()
 	if err != nil {
 		log.Fatal(err)
@@ -28,13 +26,13 @@ func IsValidRegistration(user string, password string) bool {
 	log.Println("[database] Connected successfully.")
 
 	_, err = db.Query("INSERT INTO account VALUES($1, $2)", user, password)
-  if err != nil {
-    if strings.Contains(err.Error(), "violates unique constraint") {
-      log.Println("[database] registeration failed, duplicated key")
-		  return false
-    } else {
-      log.Fatal(err)
-    }
+	if err != nil {
+		if strings.Contains(err.Error(), "violates unique constraint") {
+			log.Println("[database] registeration failed, duplicated key...")
+			return false
+		} else {
+			log.Fatal(err)
+		}
 	}
 
 	return true
@@ -42,7 +40,7 @@ func IsValidRegistration(user string, password string) bool {
 
 func IsValidLogin(user string, password string) bool {
 	log.Println("[database] Connecting to database...")
-	db, err := sql.Open("postgres", "postgres://" + dbUser + ":" + dbPass + "@" + dbIp + ":5432/" + dbName + "?sslmode=disable")
+	db, err := sql.Open("postgres", "postgres://"+dbUser+":"+dbPass+"@"+dbIp+":5432/"+dbName+"?sslmode=disable")
 	defer db.Close()
 	if err != nil {
 		log.Fatal(err)
