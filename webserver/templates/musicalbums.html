@@ -63,6 +63,14 @@ window.onload = function() {
 </head>
 <body>
 <div class="row">
+  <div class="col-sm-4" style="width: 150px; float: left;">
+      <label for=submit>User: {{.User}}</label>
+  </div>
+  <div class="col-sm-4" style="width: 100px; float: left;">
+      <form method="post" action="/logout">
+          <button type="submit">Logout</button>
+      </form>
+  </div>
   <div class="col-sm-4" style="width: 50px; float: left;">
     <label for=fader>Size:</label>
   </div>
@@ -73,15 +81,7 @@ window.onload = function() {
     <label for=fader>Upload new music album:</label>
   </div>
   <div class="col-sm-4">
-    <input type="file" name="TheFile" id="TheFile" onchange="fileSelected()" style="width: 400px; height: 40px; background: white;"><BR>
-  </div>
-  <div class="col-sm-4">
-      <label for=fader>User: {{.User}}</label>
-  </div>
-  <div class="col-sm-4">
-      <form method="post" action="/logout">
-          <button type="submit">Logout</button>
-      </form>
+    <input type="file" name="TheFile" id="TheFile" onchange="fileSelected()" style="width: 200px; height: 40px; background: white;"><BR>
   </div>
 </div>
 <div id='result'></div>
