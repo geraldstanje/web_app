@@ -22,6 +22,7 @@ func Register(w http.ResponseWriter, r *http.Request) {
 
 	if user != "" && pass != "" && d.IsValidRegistration(user, pass) {
 		succeed = true
+    info = "Registration succeeded"
 	} else {
 		info = "Registration failed, user already registered"
 	}
