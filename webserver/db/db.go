@@ -7,14 +7,18 @@ import (
 	"strings"
 )
 
-var dbIp = "192.168.59.103"
-var dbName = "admin"
-var dbUser = "admin"
-var dbPass = "changeme"
+const (
+	DB_USER     = "admin"
+	DB_PASSWORD = "changeme"
+	DB_HOST     = "192.168.59.103"
+	DB_NAME     = "admin"
+)
 
 func IsValidRegistration(user string, password string) bool {
 	log.Println("[database] Connecting to database...")
-	db, err := sql.Open("postgres", "postgres://"+dbUser+":"+dbPass+"@"+dbIp+":5432/"+dbName+"?sslmode=disable")
+
+	dbinfo := fmt.Sprintf("user=%s password=%s dbname=%s host=%s sslmode=disable", DB_USER, DB_PASSWORD, DB_HOST, DB_NAME)
+	db, err := sql.Open("postgres", dbinfo)
 	defer db.Close()
 	if err != nil {
 		log.Fatal(err)
@@ -40,7 +44,9 @@ func IsValidRegistration(user string, password string) bool {
 
 func IsValidLogin(user string, password string) bool {
 	log.Println("[database] Connecting to database...")
-	db, err := sql.Open("postgres", "postgres://"+dbUser+":"+dbPass+"@"+dbIp+":5432/"+dbName+"?sslmode=disable")
+
+	dbinfo := fmt.Sprintf("user=%s password=%s dbname=%s host=%s sslmode=disable", DB_USER, DB_PASSWORD, DB_HOST, DB_NAME)
+	db, err := sql.Open("postgres", dbinfo)
 	defer db.Close()
 	if err != nil {
 		log.Fatal(err)
