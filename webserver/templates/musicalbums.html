@@ -64,21 +64,21 @@ window.onload = function() {
 <body>
 <div class="row">
   <div class="col-sm-4" style="width: 250px; float: left;">
-      <label for=submit>User: {{.User}}</label>
+      <label>User: {{.User}}</label>
   </div>
   <div class="col-sm-4" style="width: 100px; float: left;">
       <form method="post" action="/logout">
-          <button type="submit">Logout</button>
+          <button type="logout">Logout</button>
       </form>
   </div>
   <div class="col-sm-4" style="width: 50px; float: left;">
-    <label for=fader>Size:</label>
+    <label>Size:</label>
   </div>
   <div class="col-sm-4" style="width: 200px; float: left;">
     <input type="range" min="50" max="300" value="10" id="fader" step="10" oninput="resizeAlbumCover(value)" style="width: 150px; float: left; margin: 5px;">
   </div>
   <div class="col-sm-4" style="width: 200px; float: left;">
-    <label for=fader>Upload new music album:</label>
+    <label>Upload new music album:</label>
   </div>
   <div class="col-sm-4">
     <input type="file" name="TheFile" id="TheFile" onchange="fileSelected()" style="width: 200px; height: 40px; background: white;"><BR>
