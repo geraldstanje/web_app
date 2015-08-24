@@ -62,4 +62,10 @@ cleanall() {
   #docker rmi $(docker images -q)
 }
 
+# Delete all containers
+# docker rm $(docker ps -a -q)
+
+# Delete all images
+# docker rmi $(docker images -q)
+
 case $1 in build|run|info|logs|stop|stopall|clean|cleanall) "$1" ;; *) printf >&2 '%s: unknown command\n' "$1"; exit 1;; esac
