@@ -20,15 +20,13 @@ func IsValidRegistration(user string, password string) bool {
 	log.Println("[database] Connected successfully.")
 
 	_, err = db.Query("INSERT INTO account VALUES($1, $2)", user, password)
-
-	//if err == sql. {
-	//	log.Println("[database] registeration failed...")
-	//	return false
-	//} else 
   if err != nil {
-    log.Printf("[database] error: %+v\n", err)
-		return false
-    //log.Fatal(err)
+    if strings.Contains(err.Error(), "duplicate key") {
+      log.Println("[database] registeration failed, duplicated key")
+		  return false
+    } else {
+      log.Fatal(err)
+    }
 	}
 
 	return true
