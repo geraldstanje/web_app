@@ -26,7 +26,7 @@ func IsValidRegistration(user string, password string) bool {
 	//	return false
 	//} else 
   if err != nil {
-    log.Println("[database] error: %v", err.Error())
+    fmt.Println("[database] error: %v", err.Error())
 		return false
     //log.Fatal(err)
 	}
