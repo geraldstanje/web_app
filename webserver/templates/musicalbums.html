@@ -28,7 +28,7 @@ function uploadFile() {
     };
     xhr.send(fd);
   } catch(err) {
-    document.getElementById("fileForm").submit();
+    console.log("error: " + err.message);
   }
 }
 
