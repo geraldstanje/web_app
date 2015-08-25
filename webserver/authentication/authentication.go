@@ -29,7 +29,7 @@ func Register(w http.ResponseWriter, r *http.Request) {
 
 	m := Message{succeed, info, ""}
 
-	//w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Content-Type", "application/json")
 	if err := json.NewEncoder(w).Encode(m); err != nil {
 		log.Println("[webserver] " + err.Error())
 	}
@@ -52,7 +52,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 
 	m := Message{succeed, info, redirectTarget}
 
-	//w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Content-Type", "application/json")
 	if err := json.NewEncoder(w).Encode(m); err != nil {
 		log.Println("[webserver] " + err.Error())
 	}
