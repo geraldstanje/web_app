@@ -26,6 +26,7 @@ $ ./docker.sh cleanall
   * CREATE TABLE users (id UUID PRIMARY KEY, email CITEXT(200) UNIQUE, password TEXT NOT NULL);
   * CREATE TABLE images (id UUID PRIMARY KEY, user_id UUID REFERENCES users, url TEXT);
 3. Store/upload the images to a CDN server
+4. Add Search feature (the user should be able to search for his own albums) 
 4. Improve error handling in webserver and postgres
 5. Add testcases for each package
 
@@ -40,10 +41,10 @@ $ boot2docker ip <br />
 ##### Start PostgreSQL interactive terminal
 $ psql -h 192.168.59.103 -p 5432 -d docker -U admin --password
 
-##### Delete the volume for the postgres db
+##### Delete the volume of the postgres db
 $ boot2docker ssh <br />
 $ sudo rm -rf /var/lib/postgresql
 
-##### Delete the volume for the image directory
+##### Delete the volume of the image directory
 $ boot2docker ssh <br />
 $ sudo rm -rf /var/volume1
