@@ -10,6 +10,8 @@ import(
 )
 
 func TestRegister(t *testing.T) {
+  t.Log("Run TestRegister...")
+
   v := url.Values{}
   v.Add("email", "test@gmail.com")
   v.Add("password", "root")  
@@ -21,4 +23,6 @@ func TestRegister(t *testing.T) {
   if w.Code != http.StatusOK {
     t.Errorf("Home page didn't return %v", http.StatusOK)
   }
+
+  t.Log("Run TestRegister...successful")
 }
