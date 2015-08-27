@@ -12,7 +12,7 @@ build() {
 }
 
 test() {
-  docker run -ti --rm --entypoint /bin/bash outyet2 scripts/unit_test.sh
+  docker run -ti --rm --entrypoint /bin/bash outyet2 scripts/unit_test.sh
 }
 
 run() {
