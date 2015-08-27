@@ -13,7 +13,7 @@ var router = mux.NewRouter()
 
 func indexHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-type", "text/html")
-	webpage, err := ioutil.ReadFile("templates/index.html")
+	webpage, err := ioutil.ReadFile("static/index.html")
 
 	if err != nil {
 		http.Error(w, fmt.Sprintf("index.html file error %v", err), 500)
