@@ -19,6 +19,8 @@ func TestRegister(t *testing.T) {
   w := httptest.NewRecorder()
   Register(w, req)
 
+  t.Log(w)
+
   if w.Code != http.StatusOK {
     t.Errorf("Home page didn't return %v", http.StatusOK)
   }
