@@ -53,10 +53,14 @@ stop() {
   docker rm webserver
 }
 
+format() {
+  boot2docker ssh 'sudo rm -rf /var/lib/postgresql; sudo rm -rf /var/volume1'
+}
+
 # Delete all containers
 # docker rm $(docker ps -a -q)
 
 # Delete all images
 # docker rmi $(docker images -q)
 
-case $1 in build|test|run|info|logs|stop) "$1" ;; *) printf >&2 '%s: unknown command\n' "$1"; exit 1;; esac
+case $1 in build|test|run|info|logs|stop|format) "$1" ;; *) printf >&2 '%s: unknown command\n' "$1"; exit 1;; esac
