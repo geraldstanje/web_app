@@ -11,6 +11,10 @@ build() {
   boot2docker ip
 }
 
+test() {
+  docker run -ti --rm --entypoint /bin/bash outyet2 scripts/unit_test.sh
+}
+
 run() {
   # Run a docker
   # -v ... it maps the filesystem from container to docker host filesystem
