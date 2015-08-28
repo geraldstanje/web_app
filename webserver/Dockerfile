@@ -9,8 +9,10 @@ ADD static/index.html /go/src/github.com/geraldstanje/web_app/webserver/static/i
 ADD templates/musicalbums.html /go/src/github.com/geraldstanje/web_app/webserver/templates/musicalbums.html
 
 # ENTRYPOINT go build && ./webserver
+# RUN go build
+# ENTRYPOINT ./webserver
 
 RUN go build
-ENTRYPOINT ./webserver
+CMD ./webserver
 
 EXPOSE 8080
