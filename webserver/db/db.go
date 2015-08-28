@@ -74,3 +74,27 @@ func IsValidLogin(user string, password string) bool {
 	log.Println("[database] login failed...")
 	return false
 }
+
+func RemoveUser(user string) bool {
+  log.Println("[database] Connecting to database...")
+
+  dbinfo := fmt.Sprintf("user=%s password=%s dbname=%s host=%s sslmode=disable", DB_USER, DB_PASSWORD, DB_NAME, DB_HOST)
+  db, err := sql.Open("postgres", dbinfo)
+  defer db.Close()
+  if err != nil {
+    log.Fatal(err)
+  }
+  err = db.Ping()
+  if err != nil {
+    log.Fatal(err)
+  }
+  log.Println("[database] Connected successfully.")
+
+  var pass string
+  err = db.Query("DELETE FROM account WHERE email = $1", user)
+  if err != nil {
+    return true
+  }
+
+  return false
+}

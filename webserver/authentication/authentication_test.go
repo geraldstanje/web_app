@@ -11,6 +11,8 @@ import(
 func TestRegister(t *testing.T) {
   t.Log("Run TestRegister...")
 
+  _ = RemoveUser("test@gmail.com")
+
   v := url.Values{}
   v.Add("email", "test@gmail.com")
   v.Add("password", "root")  
