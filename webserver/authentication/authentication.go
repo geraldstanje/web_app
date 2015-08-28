@@ -6,7 +6,6 @@ import (
 	s "github.com/geraldstanje/web_app/webserver/session"
 	"log"
 	"net/http"
-  "io/ioutil"
 )
 
 type Message struct {
@@ -20,11 +19,6 @@ func Register(w http.ResponseWriter, r *http.Request) {
 	pass := r.FormValue("password")
 	succeed := false
 	info := ""
-
-  hah, _ := ioutil.ReadAll(r.Body)
-  log.Println("req: ", string(hah))
-
-  log.Println("len(user): ", len(user))
 
 	if user != "" && pass != "" && d.IsValidRegistration(user, pass) {
 		succeed = true
