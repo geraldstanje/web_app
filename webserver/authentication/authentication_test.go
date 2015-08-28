@@ -10,7 +10,7 @@ import (
 	"testing"
 )
 
-func FakeRegister(user string, pass string) {
+func FakeRegister(t *testing.T, user string, pass string) {
   _ = d.RemoveUser(user)
 
   v := url.Values{}
@@ -37,11 +37,11 @@ func FakeRegister(user string, pass string) {
 }
 
 func TestRegister(t *testing.T) {
-	FakeRegister("test@gmail.com", "root")
+	FakeRegister(t, "test@gmail.com", "root")
 }
 
 func TestLogin(t *testing.T) {
-  FakeRegister("test@gmail.com", "root")
+  FakeRegister(t, "test@gmail.com", "root")
 
   v := url.Values{}
   v.Add("email", "test@gmail.com")
