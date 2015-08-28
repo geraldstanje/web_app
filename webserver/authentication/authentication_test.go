@@ -11,8 +11,6 @@ import (
 )
 
 func TestRegister(t *testing.T) {
-	t.Log("Run TestRegister...")
-
 	_ = d.RemoveUser("test@gmail.com")
 
 	v := url.Values{}
@@ -36,6 +34,4 @@ func TestRegister(t *testing.T) {
 	if m.Succeed != true {
 		t.Errorf("Wrong json response")
 	}
-
-	t.Log("Run TestRegister...successful")
 }
