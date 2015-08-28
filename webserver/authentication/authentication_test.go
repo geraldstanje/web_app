@@ -33,8 +33,8 @@ func TestRegister(t *testing.T) {
 		t.Errorf(err.Error())
 	}
 
-	if m.Succeed == false {
-		t.Errorf(err.Error())
+	if m.Succeed != true {
+		t.Errorf("Wrong json response")
 	}
 
 	t.Log("Run TestRegister...successful")
