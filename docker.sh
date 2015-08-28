@@ -14,7 +14,7 @@ build() {
 test() {
   # start docker postgresql_db
   docker run -d -p 5432:5432 -e POSTGRES_USER=admin -e POSTGRES_PASSWORD=changeme --name postgresql_db outyet1
-  # this sleep is required to recreate the db, after calling ./docker format
+  # this sleep is required to re-create the db, after calling ./docker format before starting the go test
   sleep 3
   # run test
   docker run --link postgresql_db -ti --rm outyet2 go test -v ./authentication
