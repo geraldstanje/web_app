@@ -15,7 +15,7 @@ test() {
   # start docker postgresql_db
   docker run -d -p 5432:5432 -e POSTGRES_USER=admin -e POSTGRES_PASSWORD=changeme --name postgresql_db -v "/var/lib/postgresql/data:/var/lib/postgresql/data" outyet1
   # run test
-  docker run -ti --rm --entrypoint /bin/bash outyet2 scripts/unit_test.sh
+  docker run -ti --rm outyet2 go test -v ./authentication
   # stop docker postgresql_db
   docker kill postgresql_db
   docker rm postgresql_db
