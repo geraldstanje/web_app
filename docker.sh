@@ -15,7 +15,7 @@ test() {
   # start docker postgresql_db
   docker run -d -p 5432:5432 -e POSTGRES_USER=admin -e POSTGRES_PASSWORD=changeme --name postgresql_db -v "/var/lib/postgresql/data:/var/lib/postgresql/data" outyet1
   # run test
-  docker run --link postgresql_db -ti --rm outyet2 go test -v ./authentication
+  docker run --link postgresql_db:postgresql_db -ti --rm outyet2 go test -v ./authentication
   # stop docker postgresql_db
   docker kill postgresql_db
   docker rm postgresql_db
@@ -28,7 +28,7 @@ run() {
   # that in the first case you provide a directory to mount in, in the 2nd case, docker creates a directory 
   # in /var/lib/docker and uses that as the host path
   docker run -d -p 5432:5432 -e POSTGRES_USER=admin -e POSTGRES_PASSWORD=changeme --name postgresql_db -v "/var/lib/postgresql/data:/var/lib/postgresql/data" outyet1
-  docker run --link postgresql_db -d -p 8080:8080 --name webserver -v "/var/volume1:/go/src/github.com/geraldstanje/web_app/webserver/files" outyet2
+  docker run --link postgresql_db:postgresql_db -d -p 8080:8080 --name webserver -v "/var/volume1:/go/src/github.com/geraldstanje/web_app/webserver/files" outyet2
 }
 
 info() {
