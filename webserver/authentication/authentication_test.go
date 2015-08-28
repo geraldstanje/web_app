@@ -29,7 +29,7 @@ func TestRegister(t *testing.T) {
 	}
 
 	var m Message
-	if err := json.NewDecoder(req.Body).Decode(&m); err != nil {
+	if err := json.NewDecoder(w.Body).Decode(&m); err != nil {
 		t.Errorf(err.Error())
 	}
 
