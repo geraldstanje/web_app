@@ -33,7 +33,9 @@ func TestRegister(t *testing.T) {
 		t.Errorf(err.Error())
 	}
 
-	t.Log("m: ", m)
+	if m.Succeed == false {
+		t.Errorf(err.Error())
+	}
 
 	t.Log("Run TestRegister...successful")
 }
