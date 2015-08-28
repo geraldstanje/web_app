@@ -20,6 +20,9 @@ func Register(w http.ResponseWriter, r *http.Request) {
 	succeed := false
 	info := ""
 
+  log.Println("user: ", user)
+  log.Println("pass: ", pass)
+
 	if user != "" && pass != "" && d.IsValidRegistration(user, pass) {
 		succeed = true
 		info = "Registration succeeded"
