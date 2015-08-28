@@ -11,7 +11,7 @@ import (
 const (
 	DB_USER     = "admin"
 	DB_PASSWORD = "changeme"
-	DB_HOST     = "192.168.59.103"
+	DB_HOST     = "postgresql_db"
 	DB_NAME     = "admin"
 )
 
