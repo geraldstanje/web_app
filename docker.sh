@@ -13,7 +13,9 @@ build() {
 
 test() {
   # start docker postgresql_db
-  docker run -d -p 5432:5432 -e POSTGRES_USER=admin -e POSTGRES_PASSWORD=changeme --name postgresql_db -v "/var/lib/postgresql/data:/var/lib/postgresql/data" outyet1
+  docker run -d -p 5432:5432 -e POSTGRES_USER=admin -e POSTGRES_PASSWORD=changeme --name postgresql_db outyet1
+  # this sleep is required to recreate the db, after calling ./docker format
+  sleep 3
   # run test
   docker run --link postgresql_db -ti --rm outyet2 go test -v ./authentication
   # stop docker postgresql_db
