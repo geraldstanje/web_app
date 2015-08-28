@@ -6,6 +6,10 @@
 This builds the webserver and postgres docker image <br />
 $ ./docker.sh build
 
+### Run docker containers tests
+This command calls go test to test all packages <br />
+$ ./docker.sh test
+
 ### Run docker containers
 This starts the webserver and postgres docker container <br />
 $ ./docker.sh run
@@ -15,10 +19,7 @@ This shows the all logs within the webserver and postgres docker container <br /
 $ ./docker.sh logs
 
 ### Stop docker containers
-$ ./docker.sh stopall
-
-### Remove docker containers
-$ ./docker.sh cleanall
+$ ./docker.sh stop
 
 ## Next, Next Steps:
 1. Add password authentication strategies: store SHA512 or bcrypt instead of the plain password
