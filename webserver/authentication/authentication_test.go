@@ -10,12 +10,6 @@ import (
 	"testing"
 )
 
-type Message struct {
-	Succeed  bool   `json:"succeed"`
-	Info     string `json:"info"`
-	Redirect string `json:"redirect"`
-}
-
 func TestRegister(t *testing.T) {
 	t.Log("Run TestRegister...")
 
@@ -39,7 +33,7 @@ func TestRegister(t *testing.T) {
 		t.Errorf(err.Error())
 	}
 
-	t.log("m: ", m)
+	t.Log("m: ", m)
 
 	t.Log("Run TestRegister...successful")
 }
