@@ -92,8 +92,8 @@ func RemoveUser(user string) bool {
 
   _, err = db.Query("DELETE FROM account WHERE email = $1", user)
   if err != nil {
-    return true
+    return false
   }
 
-  return false
+  return true
 }

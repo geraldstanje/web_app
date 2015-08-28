@@ -6,12 +6,13 @@ import(
     "testing"
     "net/url"
     "strings"
+    d "github.com/geraldstanje/web_app/webserver/db"
 )
 
 func TestRegister(t *testing.T) {
   t.Log("Run TestRegister...")
 
-  _ = RemoveUser("test@gmail.com")
+  _ = d.RemoveUser("test@gmail.com")
 
   v := url.Values{}
   v.Add("email", "test@gmail.com")
