@@ -14,7 +14,7 @@ $ ./docker.sh test
 This starts the webserver and postgres docker container <br />
 $ ./docker.sh run
 
-### Display logs:
+### Display logs
 This shows the all logs within the webserver and postgres docker container <br />
 $ ./docker.sh logs
 
