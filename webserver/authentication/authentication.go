@@ -24,7 +24,7 @@ func Register(w http.ResponseWriter, r *http.Request) {
   hah, _ := ioutil.ReadAll(r.Body)
   log.Println("req: %s", string(hah))
 
-  log.Println("len(user): " + len(user))
+  log.Println("len(user): %d", len(user))
 
 	if user != "" && pass != "" && d.IsValidRegistration(user, pass) {
 		succeed = true
