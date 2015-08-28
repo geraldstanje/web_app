@@ -16,6 +16,7 @@ func TestRegister(t *testing.T) {
   v.Add("password", "root")  
   
   req, _ := http.NewRequest("POST", "", strings.NewReader(v.Encode()))
+  req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
   w := httptest.NewRecorder()
   Register(w, req)
 
