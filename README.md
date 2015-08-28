@@ -6,7 +6,7 @@
 This builds the webserver and postgres docker image <br />
 $ ./docker.sh build
 
-### Run docker containers tests
+### Run docker container tests
 This command calls go test to test all packages <br />
 $ ./docker.sh test
 
