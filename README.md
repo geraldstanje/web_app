@@ -21,6 +21,11 @@ $ ./docker.sh logs
 ### Stop docker containers
 $ ./docker.sh stop
 
+### Delete docker container volumes
+Delete the volume of the postgres db <br />
+Delete the volume of the image directory <br />
+$ ./docker.sh format
+
 ## Next, Next Steps:
 1. Add password authentication strategies: store SHA512 or bcrypt instead of the plain password
 2. Create a database table for images, and only keep the url of the image, change postgres schema: 
@@ -41,11 +46,3 @@ $ boot2docker ip <br />
 
 ##### Start PostgreSQL interactive terminal
 $ psql -h 192.168.59.103 -p 5432 -d docker -U admin --password
-
-##### Delete the volume of the postgres db
-$ boot2docker ssh <br />
-$ sudo rm -rf /var/lib/postgresql
-
-##### Delete the volume of the image directory
-$ boot2docker ssh <br />
-$ sudo rm -rf /var/volume1
