@@ -5,7 +5,7 @@ import(
     "net/http/httptest"
     "testing"
     "net/url"
-    "bytes"
+    "strings"
 )
 
 func TestRegister(t *testing.T) {
@@ -15,7 +15,7 @@ func TestRegister(t *testing.T) {
   v.Add("email", "test@gmail.com")
   v.Add("password", "root")  
   
-  req, _ := http.NewRequest("POST", "", bytes.NewBufferString(v.Encode()))
+  req, _ := http.NewRequest("POST", "", strings.NewReader(v.Encode()))
   w := httptest.NewRecorder()
   Register(w, req)
 
