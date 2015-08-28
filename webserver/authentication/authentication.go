@@ -6,6 +6,7 @@ import (
 	s "github.com/geraldstanje/web_app/webserver/session"
 	"log"
 	"net/http"
+  "ioutil"
 )
 
 type Message struct {
