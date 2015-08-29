@@ -44,7 +44,7 @@ func TestSetSession(t *testing.T) {
 
   cc, _ := req.Cookie("session")
 
-  log.Println("cookie:", c.String())
+  log.Println("cookie:", cc.String())
 
   user = GetUserName(req)
 
