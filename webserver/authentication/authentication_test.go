@@ -8,6 +8,7 @@ import (
 	"net/url"
 	"strings"
 	"testing"
+  "log"
 )
 
 func FakeRegister(t *testing.T, user string, pass string) {
@@ -65,6 +66,8 @@ func FakeLogout(t *testing.T) {
   req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
   w := httptest.NewRecorder()
   Logout(w, req)
+
+  log.Println(w.Code)
 
   if w.Code != http.StatusMovedPermanently {
     t.Errorf("Home page didn't return %v", http.StatusMovedPermanently)
