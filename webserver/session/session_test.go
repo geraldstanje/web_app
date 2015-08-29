@@ -43,14 +43,14 @@ func TestSetSession(t *testing.T) {
     t.Errorf("getRecordedCookie failed")
   }
 
-  req, _ = http.NewRequest("POST", "", nil)
+  req, _ = http.NewRequest("GET", "", nil)
   req.AddCookie(c)
 
   user, err = GetSessionUser(req)
   if err != nil {
     t.Errorf("GetSessionUser failed")
   }
-  
+
   log.Println("User", user)
 
   //if user != "" {
