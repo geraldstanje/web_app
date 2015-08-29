@@ -7,16 +7,26 @@ import (
   "log"
 )
 
+func getRecordedCookie(recorder *httptest.ResponseRecorder, name string) (*http.Cookie, error) {
+  r := &http.Response{Header: recorder.HeaderMap}
+  for _, cookie := range r.Cookies() {
+    if cookie.Name == name {
+      return cookie, nil
+    }
+  }
+  return nil, http.ErrNoCookie
+}
+
 func TestSetSession(t *testing.T) {
   w := httptest.NewRecorder()
   SetSession("Douglas.Costa@gmail.com", w)
-
-  req, _ := http.NewRequest("POST", "", nil)
-  c, err := w.Cookie("Douglas.Costa@gmail.com")
+  
+  c, err := getRecordedCookie(w, "Douglas.Costa@gmail.com")
   if err != nil {
-    t.Errorf("get Cookie failed")
+    t.Errorf("getRecordedCookie failed")
   }
 
+  req, _ := http.NewRequest("POST", "", nil)
   req.AddCookie(c)
   user := GetUserName(req)
   log.Println("User:", user)
