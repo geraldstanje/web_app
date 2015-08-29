@@ -35,7 +35,7 @@ func TestSetSession(t *testing.T) {
 
   ClearSession(w)
 
-  user := GetUserName(req)
+  user = GetUserName(req)
 
   if user != "" {
     t.Errorf("GetUserName failed")
