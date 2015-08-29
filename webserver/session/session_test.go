@@ -39,7 +39,7 @@ func TestSetSession(t *testing.T) {
   //if err != nil {
   //  t.Errorf("getRecordedCookie failed")
   //}
-  c, err := req.Cookie("session")
+  c, err = req.Cookie("session")
   if err != nil {
     t.Errorf("req.Cookie failed")
   }
