@@ -60,7 +60,7 @@ func FakeLogin(t *testing.T, user string, pass string) {
   }
 }
 
-func FakeLogout(t *testing.T, user string, pass string) {
+func FakeLogout(t *testing.T) {
   req, _ := http.NewRequest("GET", "", nil)
   req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
   w := httptest.NewRecorder()
@@ -78,5 +78,5 @@ func TestRegister(t *testing.T) {
 func TestLogin(t *testing.T) {
   FakeRegister(t, "test@gmail.com", "root")
   FakeLogin(t, "test@gmail.com", "root")
-  FakeLogout()
+  FakeLogout(t)
 }
