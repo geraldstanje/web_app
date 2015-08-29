@@ -37,6 +37,7 @@ func TestSetSession(t *testing.T) {
     t.Errorf("GetUserName failed")
   }
 
+  w = httptest.NewRecorder()
   ClearSession(w)
   c, err = getRecordedCookie(w, "session")
   if err != nil {
