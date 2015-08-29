@@ -1,7 +1,6 @@
 package session
 
 import (
-	"errors"
 	"github.com/gorilla/securecookie"
 	"net/http"
 	"strconv"
