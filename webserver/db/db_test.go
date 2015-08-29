@@ -4,7 +4,7 @@ import (
   "testing"
 )
 
-func TestUserAdd(t *testing.T, user string, pass string) {
+func TestUserAdd(t *testing.T) {
   res := AddUser("Max.Musterman@gmail.com", "admin")
   if res != true {
     t.Errorf("Add user failed")
