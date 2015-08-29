@@ -36,13 +36,7 @@ func FakeRegister(t *testing.T, user string, pass string) {
   }
 }
 
-func TestRegister(t *testing.T) {
-	FakeRegister(t, "test@gmail.com", "root")
-}
-
-func TestLogin(t *testing.T) {
-  FakeRegister(t, "test@gmail.com", "root")
-
+func FakeLogin(t *testing.T, user string, pass string) {
   v := url.Values{}
   v.Add("email", "test@gmail.com")
   v.Add("password", "root")
@@ -64,4 +58,25 @@ func TestLogin(t *testing.T) {
   if m.Succeed != true || m.Redirect != "/musicalbums" {
     t.Errorf("Wrong json response")
   }
+}
+
+func FakeLogout(t *testing.T, user string, pass string) {
+  req, _ := http.NewRequest("GET", "", nil)
+  req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+  w := httptest.NewRecorder()
+  Logout(w, req)
+
+  if w.Code != http.StatusOK {
+    t.Errorf("Home page didn't return %v", http.StatusOK)
+  }
+}
+
+func TestRegister(t *testing.T) {
+	FakeRegister(t, "test@gmail.com", "root")
+}
+
+func TestLogin(t *testing.T) {
+  FakeRegister(t, "test@gmail.com", "root")
+  FakeLogin(t, "test@gmail.com", "root")
+  FakeLogout()
 }
