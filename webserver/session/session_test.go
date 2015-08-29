@@ -52,8 +52,8 @@ func TestClearSession(t *testing.T) {
 	req, _ := http.NewRequest("GET", "", nil)
 	req.AddCookie(c)
 
-	_, err = GetSessionUser(req)
-	if err == nil {
+	user, err = GetSessionUser(req)
+	if user != "" {
 		t.Errorf("GetSessionUser failed")
 	}
 }
