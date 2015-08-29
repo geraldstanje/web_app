@@ -4,7 +4,6 @@ import (
   "testing"
   "net/http"
   "net/http/httptest"
-  "log"
 )
 
 func getRecordedCookie(recorder *httptest.ResponseRecorder, name string) (*http.Cookie, error) {
