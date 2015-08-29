@@ -30,7 +30,7 @@ func TestCheckUserLogin(t *testing.T) {
 
 func TestRemoveUser(t *testing.T) {
   res := RemoveUser("David.Alaba@gmail.com")
-  if res != false {
+  if res != true {
     t.Errorf("RemoveUser failed")
   }
 
@@ -42,5 +42,5 @@ func TestRemoveUser(t *testing.T) {
   res = RemoveUser("David.Alaba@gmail.com")
   if res != true {
     t.Errorf("RemoveUser failed")
-  }  
+  }
 }
