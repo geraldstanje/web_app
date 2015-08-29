@@ -35,7 +35,9 @@ func GetUserName(r *http.Request) (userName string) {
 	if cookie, err := r.Cookie("session"); err == nil {
 		cookieValue := make(map[string]string)
 		if err = cookieHandler.Decode("session", cookie.Value, &cookieValue); err == nil {
-			userName = cookieValue["user"]
+      if cookie.MaxAge != -1 {
+			 userName = cookieValue["user"]
+      }
 		}
 	}
 	return userName
