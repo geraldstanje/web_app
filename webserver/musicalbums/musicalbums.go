@@ -88,7 +88,7 @@ func Resize(w http.ResponseWriter, r *http.Request) {
 func MusicAlbums(w http.ResponseWriter, req *http.Request) {
 	user, err := s.GetSessionUser(req)
   if user == "" || err != nil {
-    http.Redirect(w, req, "/", 302)
+    //http.Redirect(w, req, "/", 302)
     return
   }
 
