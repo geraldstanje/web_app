@@ -28,7 +28,10 @@ func TestSetSession(t *testing.T) {
 
   req, _ := http.NewRequest("POST", "", nil)
   req.AddCookie(c)
-  user := GetUserName(req)
+  user, err := GetSessionUser(req)
+  if err != nil {
+    t.Errorf("GetSessionUser failed")
+  }
 
   if user != "Douglas.Costa@gmail.com" {
     t.Errorf("GetUserName failed")
@@ -43,8 +46,11 @@ func TestSetSession(t *testing.T) {
   req, _ = http.NewRequest("POST", "", nil)
   req.AddCookie(c)
 
-  user = GetUserName(req)
-
+  user, err = GetSessionUser(req)
+  if err != nil {
+    t.Errorf("GetSessionUser failed")
+  }
+  
   log.Println("User", user)
 
   //if user != "" {
