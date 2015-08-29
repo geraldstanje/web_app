@@ -8,7 +8,6 @@ import (
 	"net/url"
 	"strings"
 	"testing"
-  "log"
 )
 
 func FakeRegister(t *testing.T, user string, pass string) {
