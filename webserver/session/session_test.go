@@ -15,5 +15,7 @@ func TestSetSession(t *testing.T) {
   SetSession("Douglas.Costa@gmail.com", w)
 
   user := GetUserName(req)
-  log.Println(user)
+  if user != "Douglas.Costa@gmail.com" {
+    t.Errorf("GetUserName failed")
+  }
 }
