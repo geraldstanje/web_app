@@ -20,7 +20,7 @@ func Register(w http.ResponseWriter, r *http.Request) {
 	succeed := false
 	info := ""
 
-	if user != "" && pass != "" && d.IsValidRegistration(user, pass) {
+	if user != "" && pass != "" && d.AddUser(user, pass) {
 		succeed = true
 		info = "Registration succeeded"
 	} else {
@@ -42,7 +42,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	info := ""
 	redirectTarget := "/"
 
-	if user != "" && pass != "" && d.IsValidLogin(user, pass) {
+	if user != "" && pass != "" && d.CheckUserLogin(user, pass) {
 		s.SetSession(user, w)
 		succeed = true
 		redirectTarget = "/musicalbums"

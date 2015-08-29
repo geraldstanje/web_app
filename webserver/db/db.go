@@ -15,7 +15,7 @@ const (
 	DB_NAME     = "admin"
 )
 
-func IsValidRegistration(user string, password string) bool {
+func AddUser(user string, password string) bool {
 	log.Println("[database] Connecting to database...")
 
 	dbinfo := fmt.Sprintf("user=%s password=%s dbname=%s host=%s sslmode=disable", DB_USER, DB_PASSWORD, DB_NAME, DB_HOST)
@@ -43,7 +43,7 @@ func IsValidRegistration(user string, password string) bool {
 	return true
 }
 
-func IsValidLogin(user string, password string) bool {
+func CheckUserLogin(user string, password string) bool {
 	log.Println("[database] Connecting to database...")
 
 	dbinfo := fmt.Sprintf("user=%s password=%s dbname=%s host=%s sslmode=disable", DB_USER, DB_PASSWORD, DB_NAME, DB_HOST)
