@@ -92,7 +92,7 @@ func MusicAlbums(w http.ResponseWriter, req *http.Request) {
     return
   }
 
-	err := renderMusicAlbumsTemplate(w, user)
+	err = renderMusicAlbumsTemplate(w, user)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	} else {
