@@ -17,7 +17,7 @@ test() {
   # this sleep is required to re-create the db, after calling ./docker format before starting the go test
   sleep 3
   # run test
-  docker run --link postgresql_db -ti --rm outyet2 go test -v ./authentication ./db
+  docker run --link postgresql_db -ti --rm outyet2 go test -v ./authentication ./db ./session
   # stop docker postgresql_db
   docker kill postgresql_db
   docker rm postgresql_db
