@@ -4,7 +4,6 @@ import (
   "testing"
   "net/http"
   "net/http/httptest"
-  "log"
 )
 
 func TestSetSession(t *testing.T) {
