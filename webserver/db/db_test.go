@@ -27,3 +27,20 @@ func TestCheckUserLogin(t *testing.T) {
     t.Errorf("CheckUserLogin failed")
   }
 }
+
+func TestRemoveUser(t *testing.T) {
+  res := RemoveUser("David.Alaba@gmail.com")
+  if res != false {
+    t.Errorf("RemoveUser failed")
+  }
+
+  res = AddUser("David.Alaba@gmail.com", "admin")
+  if res != true {
+    t.Errorf("AddUser failed")
+  }
+
+  res := RemoveUser("David.Alaba@gmail.com")
+  if res != true {
+    t.Errorf("RemoveUser failed")
+  }  
+}
