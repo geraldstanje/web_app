@@ -39,18 +39,9 @@ func TestSetSession(t *testing.T) {
 
 func TestClearSession(t *testing.T) {
 	w := httptest.NewRecorder()
-  SetSession("Douglas.Costa@gmail.com", w)
-
-  w = httptest.NewRecorder()
 	ClearSession(w)
 
-	c, err := getRecordedCookie(w, "session")
-	if err != nil {
-		t.Errorf("getRecordedCookie failed")
-	}
-
 	req, _ := http.NewRequest("GET", "", nil)
-	req.AddCookie(c)
 
 	user, err := GetSessionUser(req)
 	if user != "" {
