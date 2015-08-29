@@ -3,7 +3,6 @@ package session
 import (
 	"github.com/gorilla/securecookie"
 	"net/http"
-  "log"
   "errors"
 )
 
