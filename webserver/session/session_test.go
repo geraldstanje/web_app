@@ -32,4 +32,12 @@ func TestSetSession(t *testing.T) {
   if user != "Douglas.Costa@gmail.com" {
     t.Errorf("GetUserName failed")
   }
+
+  ClearSession(w)
+
+  user := GetUserName(req)
+
+  if user != "" {
+    t.Errorf("GetUserName failed")
+  }
 }
