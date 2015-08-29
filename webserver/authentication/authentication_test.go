@@ -66,8 +66,8 @@ func FakeLogout(t *testing.T) {
   w := httptest.NewRecorder()
   Logout(w, req)
 
-  if w.Code != http.StatusOK {
-    t.Errorf("Home page didn't return %v", http.StatusOK)
+  if w.Code != http.StatusMovedPermanently {
+    t.Errorf("Home page didn't return %v", http.StatusMovedPermanently)
   }
 }
 
