@@ -39,7 +39,7 @@ func TestRemoveUser(t *testing.T) {
     t.Errorf("AddUser failed")
   }
 
-  res := RemoveUser("David.Alaba@gmail.com")
+  res = RemoveUser("David.Alaba@gmail.com")
   if res != true {
     t.Errorf("RemoveUser failed")
   }  
