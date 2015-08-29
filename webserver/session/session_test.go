@@ -44,8 +44,9 @@ func TestSetSession(t *testing.T) {
   }
 
   c.MaxAge = -1
-  
+
   req, _ = http.NewRequest("GET", "", nil)
+  req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
   req.AddCookie(c)
 
   user, err = GetSessionUser(req)
