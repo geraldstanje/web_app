@@ -1,7 +1,6 @@
 package db
 
 import (
-  d "github.com/geraldstanje/web_app/webserver/db"
   "testing"
 )
 
