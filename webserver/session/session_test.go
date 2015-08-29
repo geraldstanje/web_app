@@ -40,8 +40,8 @@ func TestSetSession(t *testing.T) {
     t.Errorf("getRecordedCookie failed")
   }
   c.MaxAge = -1
-  
   req.AddCookie(c)
+
   user = GetUserName(req)
 
   log.Println("User", user)
