@@ -26,7 +26,7 @@ func TestSetSession(t *testing.T) {
     t.Errorf("getRecordedCookie failed")
   }
 
-  req, _ := http.NewRequest("POST", "", nil)
+  req, _ := http.NewRequest("GET", "", nil)
   req.AddCookie(c)
   user, err := GetSessionUser(req)
   if err != nil {
@@ -34,28 +34,18 @@ func TestSetSession(t *testing.T) {
   }
 
   if user != "Douglas.Costa@gmail.com" {
-    t.Errorf("GetUserName failed")
-  }
-
-  ClearSession(w)
-  c, err = getRecordedCookie(w, "session")
-  if err != nil {
-    t.Errorf("getRecordedCookie failed")
-  }
-
-  log.Println("cookie:", c.String())
-
-  req, _ = http.NewRequest("GET", "", nil)
-  req.AddCookie(c)
-
-  user, err = GetSessionUser(req)
-  if err != nil {
     t.Errorf("GetSessionUser failed")
   }
+}
 
-  log.Println("User", user)
+func TestClearSession(t *testing.T) {
+  ClearSession(w)
 
-  //if user != "" {
-  //  t.Errorf("GetUserName failed")
-  //}
+  req, _ := http.NewRequest("GET", "", nil)
+  req.AddCookie(c)
+
+  _, err := GetSessionUser(req)
+  if err == nil {
+    t.Errorf("GetSessionUser failed")
+  }
 }
