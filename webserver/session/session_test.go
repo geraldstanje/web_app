@@ -8,14 +8,17 @@ import (
 )
 
 func TestSetSession(t *testing.T) {
-  req, _ := http.NewRequest("POST", "", nil)
-  req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
   w := httptest.NewRecorder()
-
   SetSession("Douglas.Costa@gmail.com", w)
 
+  req, _ := http.NewRequest("POST", "", nil)
+  c, err := w.Cookie("Douglas.Costa@gmail.com")
+  if err != nil {
+    t.Errorf("get Cookie failed")
+  }
+
+  req.AddCookie(c)
   user := GetUserName(req)
-  
   log.Println("User:", user)
 
   //if user != "Douglas.Costa@gmail.com" {
