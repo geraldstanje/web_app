@@ -39,6 +39,7 @@ func TestSetSession(t *testing.T) {
 
 func TestClearSession(t *testing.T) {
 	w := httptest.NewRecorder()
+  SetSession("Douglas.Costa@gmail.com", w)
 	ClearSession(w)
 
 	c, err := getRecordedCookie(w, "session")
