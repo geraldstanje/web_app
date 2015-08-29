@@ -20,7 +20,7 @@ func getRecordedCookie(recorder *httptest.ResponseRecorder, name string) (*http.
 func TestSetSession(t *testing.T) {
   w := httptest.NewRecorder()
   SetSession("Douglas.Costa@gmail.com", w)
-  
+
   c, err := getRecordedCookie(w, "session")
   if err != nil {
     t.Errorf("getRecordedCookie failed")
@@ -29,9 +29,8 @@ func TestSetSession(t *testing.T) {
   req, _ := http.NewRequest("POST", "", nil)
   req.AddCookie(c)
   user := GetUserName(req)
-  log.Println("User:", user)
 
-  //if user != "Douglas.Costa@gmail.com" {
-  //  t.Errorf("GetUserName failed")
-  //}
+  if user != "Douglas.Costa@gmail.com" {
+    t.Errorf("GetUserName failed")
+  }
 }
