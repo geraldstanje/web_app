@@ -6,6 +6,12 @@ function login(email, pass) {
   try {
     var email = document.getElementById('email').value;
     var pass = document.getElementById('password').value;
+
+    if (email == "" || pass == "") {
+      alert("empty email or password");
+      return;
+    }
+
     var fd = new FormData();
     fd.append("email", email);
     fd.append("password", pass);
@@ -26,6 +32,12 @@ function register(email, pass) {
   try {
     var email = document.getElementById('email').value;
     var pass = document.getElementById('password').value;
+
+    if (email == "" || pass == "") {
+      alert("empty email or password");
+      return;
+    }
+
     var fd = new FormData();
     fd.append("email", email);
     fd.append("password", pass);
