@@ -43,10 +43,9 @@ func TestSetSession(t *testing.T) {
     t.Errorf("getRecordedCookie failed")
   }
 
-  c.MaxAge = -1
+  log.Println("cookie:", c.String())
 
   req, _ = http.NewRequest("GET", "", nil)
-  req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
   req.AddCookie(c)
 
   user, err = GetSessionUser(req)
