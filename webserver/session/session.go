@@ -24,12 +24,14 @@ func SetSession(userName string, w http.ResponseWriter) {
 }
 
 func ClearSession(w http.ResponseWriter) {
-	cookie := &http.Cookie{
+	cookie := &http.Cookie{Name: "session", MaxAge: -1, Expires: time.Unix(1, 0)}
+  /*&http.Cookie{
 		Name:   "session",
 		Value:  "",
 		Path:   "/",
 		MaxAge: -1,
-	}
+	}*/
+
 	http.SetCookie(w, cookie)
 }
 
