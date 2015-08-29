@@ -91,6 +91,9 @@ func RemoveUser(user string) bool {
   log.Println("[database] Connected successfully.")
 
   _, err = db.Query("DELETE FROM account WHERE email = $1", user)
+
+  log.Println(err.Error())
+
   if err != nil {
     return false
   }
