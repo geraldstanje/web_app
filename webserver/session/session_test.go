@@ -14,6 +14,6 @@ func TestSetSession(t *testing.T) {
 
   SetSession("Douglas.Costa@gmail.com", w)
 
-  user := GetUserName(r)
+  user := GetUserName(req)
   log.Println(user)
 }
