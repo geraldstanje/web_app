@@ -40,7 +40,7 @@ func TestSetSession(t *testing.T) {
     t.Errorf("getRecordedCookie failed")
   }
 
-  req, _ := http.NewRequest("POST", "", nil)
+  req, _ = http.NewRequest("POST", "", nil)
   req.AddCookie(c)
 
   user = GetUserName(req)
