@@ -4,6 +4,7 @@ import (
 	"github.com/gorilla/securecookie"
 	"net/http"
   "log"
+  "errors"
 )
 
 var cookieHandler = securecookie.New(securecookie.GenerateRandomKey(64), securecookie.GenerateRandomKey(32))
@@ -39,7 +40,7 @@ func GetSessionUser(r *http.Request) (userName string, err error) {
       log.Println("maxage:", cookie.MaxAge)
 
       if cookie.MaxAge == -1 {
-        err = error.New("session expired")
+        err = errors.New("session expired")
       } else {
 			  userName = cookieValue["user"]
       }
