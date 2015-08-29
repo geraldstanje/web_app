@@ -42,7 +42,7 @@ func TestSetSession(t *testing.T) {
   c.MaxAge = -1
   req.AddCookie(c)
 
-  cc := req.Cookies("session")
+  cc, _ := req.Cookie("session")
 
   log.Println("cookie:", c.String())
 
