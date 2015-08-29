@@ -95,7 +95,7 @@ func TestSetSession(t *testing.T) {
   log.Println("-")
 
   time.Sleep(time.Millisecond * 2)
-  w = httptest.NewRecorder()
+  //w = httptest.NewRecorder()
   ClearSession(w)
   c, err = getRecordedCookie(w, "session")
   if err != nil {
