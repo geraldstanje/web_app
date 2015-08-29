@@ -92,8 +92,15 @@ func RemoveUser(user string) bool {
 
   res, err := db.Exec("DELETE FROM account WHERE email = $1", user)
   if err != nil {
-    return false
-  } else if changes, err := res.RowsAffected(); len(changes) == 0 || res != nil {
+    log.Fatal(err)
+  } 
+
+  changes, err := res.RowsAffected()
+  if err != nil {
+    log.Fatal(err)
+  } 
+
+  if changes == 0 {
     return false
   }
 
