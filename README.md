@@ -34,7 +34,8 @@ $ ./docker.sh format
 3. Store/upload the images to a CDN server
 4. Add Search feature (the user should be able to search for his own albums) 
 4. Improve error handling in webserver and postgres
-5. Add testcases for each package
+5. Add Email validation check for Registration
+6. Add testcases for each package
 
 ---
 
