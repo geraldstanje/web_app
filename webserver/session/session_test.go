@@ -21,7 +21,7 @@ func TestSetSession(t *testing.T) {
   w := httptest.NewRecorder()
   SetSession("Douglas.Costa@gmail.com", w)
   
-  c, err := getRecordedCookie(w, "Douglas.Costa@gmail.com")
+  c, err := getRecordedCookie(w, "session")
   if err != nil {
     t.Errorf("getRecordedCookie failed")
   }
