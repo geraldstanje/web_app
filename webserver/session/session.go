@@ -3,6 +3,7 @@ package session
 import (
 	"github.com/gorilla/securecookie"
 	"net/http"
+  "log"
 )
 
 var cookieHandler = securecookie.New(securecookie.GenerateRandomKey(64), securecookie.GenerateRandomKey(32))
@@ -35,6 +36,7 @@ func GetUserName(r *http.Request) (userName string) {
 	if cookie, err := r.Cookie("session"); err == nil {
 		cookieValue := make(map[string]string)
 		if err = cookieHandler.Decode("session", cookie.Value, &cookieValue); err == nil {
+      log.Println("maxage:", cookie.MaxAge)
       if cookie.MaxAge != -1 {
 			 userName = cookieValue["user"]
       }
