@@ -38,13 +38,31 @@ func TestSetSession(t *testing.T) {
 }
 
 func TestClearSession(t *testing.T) {
-	w := httptest.NewRecorder()
-	ClearSession(w)
+  w := httptest.NewRecorder()
+  SetSession("Douglas.Costa@gmail.com", w)
 
-	req, _ := http.NewRequest("GET", "", nil)
+  c, err := getRecordedCookie(w, "session")
+  if err != nil {
+    t.Errorf("getRecordedCookie failed")
+  }
 
-	user, _ := GetSessionUser(req)
-	if user != "" {
+  req, _ := http.NewRequest("GET", "", nil)
+  req.AddCookie(c)
+  user, err := GetSessionUser(req)
+  if err != nil {
+    t.Errorf("GetSessionUser failed")
+  }
+
+  if user != "Douglas.Costa@gmail.com" {
+    t.Errorf("GetSessionUser failed")
+  }
+
+  ClearSession(w)
+
+	req, _ = http.NewRequest("GET", "", nil)
+
+	user, err = GetSessionUser(req)
+	if user == "" {
 		t.Errorf("GetSessionUser failed")
 	}
 }
