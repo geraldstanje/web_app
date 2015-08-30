@@ -11,64 +11,64 @@ import (
 )
 
 func FakeRegister(t *testing.T, user string, pass string) {
-  _ = d.RemoveUser(user)
+	_ = d.RemoveUser(user)
 
-  v := url.Values{}
-  v.Add("email", user)
-  v.Add("password", pass)
+	v := url.Values{}
+	v.Add("email", user)
+	v.Add("password", pass)
 
-  req, _ := http.NewRequest("POST", "", strings.NewReader(v.Encode()))
-  req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
-  w := httptest.NewRecorder()
-  Register(w, req)
+	req, _ := http.NewRequest("POST", "", strings.NewReader(v.Encode()))
+	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+	w := httptest.NewRecorder()
+	Register(w, req)
 
-  if w.Code != http.StatusOK {
-    t.Errorf("Home page didn't return %v", http.StatusOK)
-  }
+	if w.Code != http.StatusOK {
+		t.Errorf("Home page didn't return %v", http.StatusOK)
+	}
 
-  var m Message
-  if err := json.NewDecoder(w.Body).Decode(&m); err != nil {
-    t.Errorf(err.Error())
-  }
+	var m Message
+	if err := json.NewDecoder(w.Body).Decode(&m); err != nil {
+		t.Errorf(err.Error())
+	}
 
-  if m.Succeed != true {
-    t.Errorf("Wrong json response")
-  }
+	if m.Succeed != true {
+		t.Errorf("Wrong json response")
+	}
 }
 
 func FakeLogin(t *testing.T, user string, pass string) {
-  v := url.Values{}
-  v.Add("email", "test@gmail.com")
-  v.Add("password", "root")
+	v := url.Values{}
+	v.Add("email", "test@gmail.com")
+	v.Add("password", "root")
 
-  req, _ := http.NewRequest("POST", "", strings.NewReader(v.Encode()))
-  req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
-  w := httptest.NewRecorder()
-  Login(w, req)
+	req, _ := http.NewRequest("POST", "", strings.NewReader(v.Encode()))
+	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+	w := httptest.NewRecorder()
+	Login(w, req)
 
-  if w.Code != http.StatusOK {
-    t.Errorf("Home page didn't return %v", http.StatusOK)
-  }
+	if w.Code != http.StatusOK {
+		t.Errorf("Home page didn't return %v", http.StatusOK)
+	}
 
-  var m Message
-  if err := json.NewDecoder(w.Body).Decode(&m); err != nil {
-    t.Errorf(err.Error())
-  }
+	var m Message
+	if err := json.NewDecoder(w.Body).Decode(&m); err != nil {
+		t.Errorf(err.Error())
+	}
 
-  if m.Succeed != true || m.Redirect != "/musicalbums" {
-    t.Errorf("Wrong json response")
-  }
+	if m.Succeed != true || m.Redirect != "/musicalbums" {
+		t.Errorf("Wrong json response")
+	}
 }
 
 func FakeLogout(t *testing.T) {
-  req, _ := http.NewRequest("GET", "", nil)
-  req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
-  w := httptest.NewRecorder()
-  Logout(w, req)
+	req, _ := http.NewRequest("GET", "", nil)
+	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+	w := httptest.NewRecorder()
+	Logout(w, req)
 
-  if w.Code != http.StatusFound {
-    t.Errorf("Home page didn't return %v", http.StatusFound)
-  }
+	if w.Code != http.StatusFound {
+		t.Errorf("Home page didn't return %v", http.StatusFound)
+	}
 }
 
 func TestRegister(t *testing.T) {
@@ -76,7 +76,7 @@ func TestRegister(t *testing.T) {
 }
 
 func TestLogin(t *testing.T) {
-  FakeRegister(t, "test@gmail.com", "root")
-  FakeLogin(t, "test@gmail.com", "root")
-  FakeLogout(t)
+	FakeRegister(t, "test@gmail.com", "root")
+	FakeLogin(t, "test@gmail.com", "root")
+	FakeLogout(t)
 }
