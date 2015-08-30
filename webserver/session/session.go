@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"time"
   "log"
+  "errors"
 )
 
 var cookieStore = securecookie.New(securecookie.GenerateRandomKey(64), securecookie.GenerateRandomKey(32))
