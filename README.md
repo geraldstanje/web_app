@@ -1,5 +1,9 @@
 # Music Album Collections:
 
+## Requirements:
+* Boot2Docker Version: 1.8.0
+* Go Version: 1.5
+
 ## Install and Run:
 
 ### Build docker images
