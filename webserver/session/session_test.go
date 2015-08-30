@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"testing"
-  "log"
+	"time"
 )
 
 func getRecordedCookie(recorder *httptest.ResponseRecorder, name string) (*http.Cookie, error) {
@@ -17,63 +17,59 @@ func getRecordedCookie(recorder *httptest.ResponseRecorder, name string) (*http.
 	return nil, http.ErrNoCookie
 }
 
+// Suggestion: Make the encoded value setter/getter function more abstract.
+
 func TestSetSession(t *testing.T) {
 	w := httptest.NewRecorder()
-	SetSession("Douglas.Costa@gmail.com", w)
+	if err := SetSession("test", w); err != nil {
+		t.Errorf("SetSession error: %s", err)
+	}
 
 	c, err := getRecordedCookie(w, "session")
 	if err != nil {
-		t.Errorf("getRecordedCookie failed")
+		t.Fatalf("getRecordedCookie error: %s", err)
+	}
+	if c.MaxAge <= 0 {
+		t.Error("cookie not set properly")
+	}
+}
+
+func TestGetSession(t *testing.T) {
+	value := map[string]string{
+		"user": "test",
+	}
+	encoded, err := cookieStore.Encode("session", value)
+	if err != nil {
+		t.Fatal("encoding failed")
 	}
 
+	c := &http.Cookie{
+		Expires: time.Now().UTC().AddDate(1, 0, 0),
+		Name:    "session",
+		Value:   encoded,
+		Path:    "/",
+	}
 	req, _ := http.NewRequest("GET", "", nil)
 	req.AddCookie(c)
+
 	user, err := GetSessionUser(req)
 	if err != nil {
-		t.Errorf("GetSessionUser failed")
+		t.Errorf("GetSessionUser error: %s", err)
 	}
-
-	if user != "Douglas.Costa@gmail.com" {
-		t.Errorf("GetSessionUser failed")
+	if user != "test" {
+		t.Errorf("expected user %q, got user %q", "test", user)
 	}
 }
 
 func TestClearSession(t *testing.T) {
-  w := httptest.NewRecorder()
-  SetSession("David.Alaba@gmail.com", w)
+	w := httptest.NewRecorder()
+	ClearSession(w)
 
-  c, err := getRecordedCookie(w, "session")
-  if err != nil {
-    t.Errorf("getRecordedCookie failed")
-  }
-
-  req, _ := http.NewRequest("GET", "", nil)
-  req.AddCookie(c)
-  user, err := GetSessionUser(req)
-  if err != nil {
-    t.Errorf("GetSessionUser failed")
-  }
-
-  if user != "David.Alaba@gmail.com" {
-    t.Errorf("GetSessionUser failed")
-  }
-
-  w.Header().Del("Set-Cookie")
-  ClearSession(w)
-
-  c, err = getRecordedCookie(w, "session")
-
-  log.Println("cookie:", c.String())
-
-  if err != nil {
-    t.Errorf("getRecordedCookie failed")
-  }
-
-	req, _ = http.NewRequest("GET", "", nil)
-  req.AddCookie(c)
-
-	user, err = GetSessionUser(req)
-	if err == nil {
-		t.Errorf("GetSessionUser failed")
+	c, err := getRecordedCookie(w, "session")
+	if err != nil {
+		t.Fatalf("getRecordedCookie error: %s", err)
+	}
+	if c.MaxAge > 0 {
+		t.Error("cookie will not be exterminated")
 	}
 }
