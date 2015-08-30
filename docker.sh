@@ -19,8 +19,8 @@ test() {
   # run test
   docker run --link postgresql_db -ti --rm outyet2 go test -v ./authentication ./db ./session
   # stop docker postgresql_db
-  docker kill postgresql_db
-  docker rm postgresql_db
+  #docker kill postgresql_db
+  #docker rm postgresql_db
 }
 
 run() {

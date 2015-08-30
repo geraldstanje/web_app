@@ -4,6 +4,7 @@ import (
 	"github.com/gorilla/securecookie"
 	"net/http"
 	"time"
+  "log"
 )
 
 var cookieStore = securecookie.New(securecookie.GenerateRandomKey(64), securecookie.GenerateRandomKey(32))
@@ -34,6 +35,9 @@ func ClearSession(w http.ResponseWriter) {
 
 func GetSessionUser(r *http.Request) (userName string, err error) {
 	if cookie, err := r.Cookie("session"); err == nil {
+
+    log.Println("cookie:", cookie.MaxAge)
+
     if cookie.MaxAge == -1 {
       err = erros.New("cookie expired")
     }
