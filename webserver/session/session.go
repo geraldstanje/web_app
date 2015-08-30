@@ -40,7 +40,7 @@ func GetSessionUser(r *http.Request) (userName string, err error) {
     log.Println("cookie:", cookie.MaxAge)
 
     if cookie.MaxAge == -1 {
-      err = erros.New("cookie expired")
+      err = errors.New("cookie expired")
     }
 
 		cookieValue := make(map[string]string)
