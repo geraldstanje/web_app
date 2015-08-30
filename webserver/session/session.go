@@ -37,7 +37,7 @@ func ClearSession(w http.ResponseWriter) {
 func GetSessionUser(r *http.Request) (userName string, err error) {
 	if cookie, err := r.Cookie("session"); err == nil {
 
-    log.Println("cookie:", cookie.MaxAge)
+    log.Println("cookie.MaxAge:", cookie.MaxAge)
 
     if cookie.MaxAge == -1 {
       err = errors.New("cookie expired")

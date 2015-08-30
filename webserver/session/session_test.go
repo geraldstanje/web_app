@@ -60,6 +60,9 @@ func TestClearSession(t *testing.T) {
   ClearSession(w)
 
   c, err = getRecordedCookie(w, "session")
+
+  log.Println("cookie:", c.String())
+  
   if err != nil {
     t.Errorf("getRecordedCookie failed")
   }
