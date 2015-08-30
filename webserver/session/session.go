@@ -1,52 +1,47 @@
 package session
 
 import (
-	"github.com/gorilla/securecookie"
+	"errors"
 	"net/http"
 	"time"
-  "log"
-  "errors"
+
+	"github.com/gorilla/securecookie"
 )
 
 var cookieStore = securecookie.New(securecookie.GenerateRandomKey(64), securecookie.GenerateRandomKey(32))
 
-func SetSession(userName string, w http.ResponseWriter) {
-	value := map[string]string{
-		"user": userName,
+func SetSession(user string, w http.ResponseWriter) (err error) {
+	val := map[string]string{
+		"user": user,
 	}
-	if encoded, err := cookieStore.Encode("session", value); err == nil {
-		cookie := &http.Cookie{
+	if enc, err := cookieStore.Encode("session", val); err == nil {
+		c := &http.Cookie{
 			Expires: time.Now().UTC().AddDate(1, 0, 0),
 			Name:    "session",
-			Value:   encoded,
+			Value:   enc,
+			MaxAge:  3600,
 			Path:    "/",
 		}
-		http.SetCookie(w, cookie)
+		http.SetCookie(w, c)
 	}
+	return err
 }
 
 func ClearSession(w http.ResponseWriter) {
-	cookie := &http.Cookie{
-		MaxAge: -1,
-		Name:   "session",
-		Path:   "/",
-	}
-	http.SetCookie(w, cookie)
+	c := &http.Cookie{Name: "session", MaxAge: -1, Expires: time.Unix(1, 0)}
+	http.SetCookie(w, c)
 }
 
-func GetSessionUser(r *http.Request) (userName string, err error) {
-	if cookie, err := r.Cookie("session"); err == nil {
+func GetSessionUser(r *http.Request) (user string, err error) {
+	if c, err := r.Cookie("session"); err == nil {
+		if c.MaxAge <= 0 {
+			err = errors.New("cookie expired")
+		}
 
-    log.Println("GetSessionUser - cookie:", cookie.String())
-
-    if cookie.MaxAge == -1 {
-      err = errors.New("cookie expired")
-    }
-
-		cookieValue := make(map[string]string)
-		if err = cookieStore.Decode("session", cookie.Value, &cookieValue); err == nil {
-			userName = cookieValue["user"]
+		val := make(map[string]string)
+		if err = cookieStore.Decode("session", c.Value, &val); err == nil {
+			user = val["user"]
 		}
 	}
-	return userName, err
+	return user, err
 }
