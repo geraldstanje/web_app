@@ -40,7 +40,7 @@ func TestSetSession(t *testing.T) {
 
 func TestClearSession(t *testing.T) {
   w := httptest.NewRecorder()
-  SetSession("Douglas.Costa@gmail.com", w)
+  SetSession("David.Alaba@gmail.com", w)
 
   c, err := getRecordedCookie(w, "session")
   if err != nil {
@@ -54,7 +54,7 @@ func TestClearSession(t *testing.T) {
     t.Errorf("GetSessionUser failed")
   }
 
-  if user != "Douglas.Costa@gmail.com" {
+  if user != "David.Alaba@gmail.com" {
     t.Errorf("GetSessionUser failed")
   }
 
