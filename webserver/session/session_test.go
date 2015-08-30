@@ -4,6 +4,7 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"testing"
+  "log"
 )
 
 func getRecordedCookie(recorder *httptest.ResponseRecorder, name string) (*http.Cookie, error) {
@@ -62,7 +63,7 @@ func TestClearSession(t *testing.T) {
   c, err = getRecordedCookie(w, "session")
 
   log.Println("cookie:", c.String())
-  
+
   if err != nil {
     t.Errorf("getRecordedCookie failed")
   }
