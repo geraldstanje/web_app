@@ -58,6 +58,7 @@ func TestClearSession(t *testing.T) {
     t.Errorf("GetSessionUser failed")
   }
 
+  w.Header().Del("Set-Cookie")
   ClearSession(w)
 
   c, err = getRecordedCookie(w, "session")
