@@ -19,8 +19,8 @@ test() {
   # run test
   docker run --link postgresql_db -ti --rm outyet2 go test -v ./authentication ./db ./session
   # stop docker postgresql_db
-  #docker kill postgresql_db
-  #docker rm postgresql_db
+  docker kill postgresql_db
+  docker rm postgresql_db
 }
 
 run() {
@@ -58,11 +58,5 @@ stop() {
 format() {
   boot2docker ssh 'sudo rm -rf /var/lib/postgresql; sudo rm -rf /var/volume1'
 }
-
-# Delete all containers
-# docker rm $(docker ps -a -q)
-
-# Delete all images
-# docker rmi $(docker images -q)
 
 case $1 in build|test|run|info|logs|stop|format) "$1" ;; *) printf >&2 '%s: unknown command\n' "$1"; exit 1;; esac
