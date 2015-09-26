@@ -62,6 +62,7 @@ func Upload(w http.ResponseWriter, r *http.Request) {
 			if err != nil {
 				log.Println("[webserver] " + err.Error())
 				http.Error(w, err.Error(), http.StatusInternalServerError)
+        return
 			}
 		}
 	}
@@ -73,6 +74,7 @@ func Resize(w http.ResponseWriter, r *http.Request) {
 		if size == "" {
 			log.Println("[webserver] " + "Empty FormValues")
 			http.Error(w, "Empty FormValue", http.StatusInternalServerError)
+      return
 		}
 
 		files, _ := ioutil.ReadDir("./files")
@@ -80,6 +82,7 @@ func Resize(w http.ResponseWriter, r *http.Request) {
 			err := renderImgTemplate(w, f.Name(), size, size)
 			if err != nil {
 				http.Error(w, err.Error(), http.StatusInternalServerError)
+        return
 			}
 		}
 	}

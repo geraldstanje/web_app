@@ -17,6 +17,7 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 
 	if err != nil {
 		http.Error(w, fmt.Sprintf("index.html file error %v", err), 500)
+    return
 	}
 
 	fmt.Fprint(w, string(webpage))
