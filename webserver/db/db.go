@@ -22,11 +22,13 @@ func AddUser(user string, password string) bool {
 	db, err := sql.Open("postgres", dbinfo)
 	defer db.Close()
 	if err != nil {
-		log.Fatal(err)
+		log.Println("[database] Open failed...")
+    return false
 	}
 	err = db.Ping()
 	if err != nil {
-		log.Fatal(err)
+    log.Println("[database] Ping failed...")
+    return false
 	}
 	log.Println("[database] Connected successfully.")
 
@@ -36,7 +38,8 @@ func AddUser(user string, password string) bool {
 			log.Println("[database] registeration failed, duplicated key...")
 			return false
 		} else {
-			log.Fatal(err)
+      log.Println("[database] Query failed...")
+      return false
 		}
 	}
 
@@ -50,11 +53,13 @@ func CheckUserLogin(user string, password string) bool {
 	db, err := sql.Open("postgres", dbinfo)
 	defer db.Close()
 	if err != nil {
-		log.Fatal(err)
+    log.Println("[database] Open failed...")
+    return false
 	}
 	err = db.Ping()
 	if err != nil {
-		log.Fatal(err)
+    log.Println("[database] Ping failed...")
+    return false
 	}
 	log.Println("[database] Connected successfully.")
 
@@ -64,7 +69,8 @@ func CheckUserLogin(user string, password string) bool {
 		log.Println("[database] login failed...")
 		return false
 	} else if err != nil {
-		log.Fatal(err)
+    log.Println("[database] QueryRow failed...")
+    return false
 	}
 
 	if password == pass {
@@ -82,22 +88,26 @@ func RemoveUser(user string) bool {
   db, err := sql.Open("postgres", dbinfo)
   defer db.Close()
   if err != nil {
-    log.Fatal(err)
+    log.Println("[database] Open failed...")
+    return false
   }
   err = db.Ping()
   if err != nil {
-    log.Fatal(err)
+    log.Println("[database] Ping failed...")
+    return false
   }
   log.Println("[database] Connected successfully.")
 
   res, err := db.Exec("DELETE FROM account WHERE email = $1", user)
   if err != nil {
-    log.Fatal(err)
+    log.Println("[database] Exec failed...")
+    return false
   } 
 
   changes, err := res.RowsAffected()
   if err != nil {
-    log.Fatal(err)
+    log.Println("[database] RowsAffected failed...")
+    return false
   } 
 
   if changes == 0 {
