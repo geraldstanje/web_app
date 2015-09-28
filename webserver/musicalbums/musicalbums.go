@@ -51,12 +51,28 @@ func Upload(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
-		file, _ := header.Open()
+		file, err := header.Open()
+    if err != nil {
+        log.Println("[webserver] " + err.Error())
+        http.Error(w, err.Error(), http.StatusInternalServerError)
+        return
+    }
 		path := fmt.Sprintf("files/%s", header.Filename)
-		buf, _ := ioutil.ReadAll(file)
+		buf, err := ioutil.ReadAll(file)
+    if err != nil {
+        log.Println("[webserver] " + err.Error())
+        http.Error(w, err.Error(), http.StatusInternalServerError)
+        return
+    }
 		ioutil.WriteFile(path, buf, 0644)
 
-		files, _ := ioutil.ReadDir("./files")
+		files, err := ioutil.ReadDir("./files")
+    if err != nil {
+      log.Println("[webserver] " + err.Error())
+      http.Error(w, err.Error(), http.StatusInternalServerError)
+      return
+    }
+
 		for _, f := range files {
 			err = renderImgTemplate(w, f.Name(), size, size)
 			if err != nil {
@@ -77,10 +93,17 @@ func Resize(w http.ResponseWriter, r *http.Request) {
       return
 		}
 
-		files, _ := ioutil.ReadDir("./files")
+		files, err := ioutil.ReadDir("./files")
+    if err != nil {
+      log.Println("[webserver] " + err.Error())
+      http.Error(w, err.Error(), http.StatusInternalServerError)
+      return
+    }
+
 		for _, f := range files {
 			err := renderImgTemplate(w, f.Name(), size, size)
 			if err != nil {
+        log.Println("[webserver] " + err.Error())
 				http.Error(w, err.Error(), http.StatusInternalServerError)
         return
 			}
