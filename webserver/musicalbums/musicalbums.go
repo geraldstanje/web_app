@@ -43,14 +43,20 @@ func renderMusicAlbumsTemplate(w http.ResponseWriter, user string) error {
 	return err
 }
 
+func formFile(r *Request) (multipart.File, error) {
+  _, header, err := r.FormFile("TheFile")
+  return header, err
+}
+
 func Upload(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
-		_, header, err := r.FormFile("TheFile")
-		if err != nil {
-			log.Println("[webserver] " + err.Error())
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
+		header, error := formFile(r)
+    if err != nil {
+      log.Println("[webserver] " + err.Error())
+      http.Error(w, err.Error(), http.StatusInternalServerError)
+      return
+    }
+
 		file, err := header.Open()
     if err != nil {
         log.Println("[webserver] " + err.Error())
