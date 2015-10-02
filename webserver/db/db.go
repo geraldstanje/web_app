@@ -15,22 +15,30 @@ const (
 	DB_NAME     = "admin"
 )
 
-func AddUser(user string, password string) bool {
-	log.Println("[database] Connecting to database...")
+func connect() (*DB, error) {
+  log.Println("[database] Connecting to database...")
 
-	dbinfo := fmt.Sprintf("user=%s password=%s dbname=%s host=%s sslmode=disable", DB_USER, DB_PASSWORD, DB_NAME, DB_HOST)
-	db, err := sql.Open("postgres", dbinfo)
-	defer db.Close()
-	if err != nil {
-		log.Println("[database] Open failed...")
+  dbinfo := fmt.Sprintf("user=%s password=%s dbname=%s host=%s sslmode=disable", DB_USER, DB_PASSWORD, DB_NAME, DB_HOST)
+  db, err := sql.Open("postgres", dbinfo)
+  defer db.Close()
+  if err != nil {
+    log.Println("[database] Open failed...")
     return false
-	}
-	err = db.Ping()
-	if err != nil {
+  }
+  err = db.Ping()
+  if err != nil {
     log.Println("[database] Ping failed...")
     return false
-	}
-	log.Println("[database] Connected successfully.")
+  }
+  log.Println("[database] Connected successfully.")
+  return db, err
+}
+
+func AddUser(user string, password string) bool {
+	db, err := connect()
+  if err != nil {
+    return false
+  }
 
 	_, err = db.Query("INSERT INTO account VALUES($1, $2)", user, password)
 	if err != nil {
@@ -47,21 +55,10 @@ func AddUser(user string, password string) bool {
 }
 
 func CheckUserLogin(user string, password string) bool {
-	log.Println("[database] Connecting to database...")
-
-	dbinfo := fmt.Sprintf("user=%s password=%s dbname=%s host=%s sslmode=disable", DB_USER, DB_PASSWORD, DB_NAME, DB_HOST)
-	db, err := sql.Open("postgres", dbinfo)
-	defer db.Close()
-	if err != nil {
-    log.Println("[database] Open failed...")
+  db, err := connect()
+  if err != nil {
     return false
-	}
-	err = db.Ping()
-	if err != nil {
-    log.Println("[database] Ping failed...")
-    return false
-	}
-	log.Println("[database] Connected successfully.")
+  }
 
 	var pass string
 	err = db.QueryRow("SELECT password FROM account WHERE email = $1", user).Scan(&pass)
@@ -82,21 +79,10 @@ func CheckUserLogin(user string, password string) bool {
 }
 
 func RemoveUser(user string) bool {
-  log.Println("[database] Connecting to database...")
-
-  dbinfo := fmt.Sprintf("user=%s password=%s dbname=%s host=%s sslmode=disable", DB_USER, DB_PASSWORD, DB_NAME, DB_HOST)
-  db, err := sql.Open("postgres", dbinfo)
-  defer db.Close()
+  db, err := connect()
   if err != nil {
-    log.Println("[database] Open failed...")
     return false
   }
-  err = db.Ping()
-  if err != nil {
-    log.Println("[database] Ping failed...")
-    return false
-  }
-  log.Println("[database] Connected successfully.")
 
   res, err := db.Exec("DELETE FROM account WHERE email = $1", user)
   if err != nil {
