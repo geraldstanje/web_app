@@ -16,29 +16,29 @@ const (
 )
 
 func connect() (*DB, error) {
-  log.Println("[database] Connecting to database...")
+	log.Println("[database] Connecting to database...")
 
-  dbinfo := fmt.Sprintf("user=%s password=%s dbname=%s host=%s sslmode=disable", DB_USER, DB_PASSWORD, DB_NAME, DB_HOST)
-  db, err := sql.Open("postgres", dbinfo)
-  defer db.Close()
-  if err != nil {
-    log.Println("[database] Open failed...")
-    return false
-  }
-  err = db.Ping()
-  if err != nil {
-    log.Println("[database] Ping failed...")
-    return false
-  }
-  log.Println("[database] Connected successfully.")
-  return db, err
+	dbinfo := fmt.Sprintf("user=%s password=%s dbname=%s host=%s sslmode=disable", DB_USER, DB_PASSWORD, DB_NAME, DB_HOST)
+	db, err := sql.Open("postgres", dbinfo)
+	defer db.Close()
+	if err != nil {
+		log.Println("[database] Open failed...")
+		return false
+	}
+	err = db.Ping()
+	if err != nil {
+		log.Println("[database] Ping failed...")
+		return false
+	}
+	log.Println("[database] Connected successfully.")
+	return db, err
 }
 
 func AddUser(user string, password string) bool {
 	db, err := connect()
-  if err != nil {
-    return false
-  }
+	if err != nil {
+		return false
+	}
 
 	_, err = db.Query("INSERT INTO account VALUES($1, $2)", user, password)
 	if err != nil {
@@ -46,8 +46,8 @@ func AddUser(user string, password string) bool {
 			log.Println("[database] registeration failed, duplicated key...")
 			return false
 		} else {
-      log.Println("[database] Query failed...")
-      return false
+			log.Println("[database] Query failed...")
+			return false
 		}
 	}
 
@@ -55,10 +55,10 @@ func AddUser(user string, password string) bool {
 }
 
 func CheckUserLogin(user string, password string) bool {
-  db, err := connect()
-  if err != nil {
-    return false
-  }
+	db, err := connect()
+	if err != nil {
+		return false
+	}
 
 	var pass string
 	err = db.QueryRow("SELECT password FROM account WHERE email = $1", user).Scan(&pass)
@@ -66,8 +66,8 @@ func CheckUserLogin(user string, password string) bool {
 		log.Println("[database] login failed...")
 		return false
 	} else if err != nil {
-    log.Println("[database] QueryRow failed...")
-    return false
+		log.Println("[database] QueryRow failed...")
+		return false
 	}
 
 	if password == pass {
@@ -79,26 +79,26 @@ func CheckUserLogin(user string, password string) bool {
 }
 
 func RemoveUser(user string) bool {
-  db, err := connect()
-  if err != nil {
-    return false
-  }
+	db, err := connect()
+	if err != nil {
+		return false
+	}
 
-  res, err := db.Exec("DELETE FROM account WHERE email = $1", user)
-  if err != nil {
-    log.Println("[database] Exec failed...")
-    return false
-  } 
+	res, err := db.Exec("DELETE FROM account WHERE email = $1", user)
+	if err != nil {
+		log.Println("[database] Exec failed...")
+		return false
+	}
 
-  changes, err := res.RowsAffected()
-  if err != nil {
-    log.Println("[database] RowsAffected failed...")
-    return false
-  } 
+	changes, err := res.RowsAffected()
+	if err != nil {
+		log.Println("[database] RowsAffected failed...")
+		return false
+	}
 
-  if changes == 0 {
-    return false
-  }
+	if changes == 0 {
+		return false
+	}
 
-  return true
+	return true
 }

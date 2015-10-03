@@ -44,47 +44,47 @@ func renderMusicAlbumsTemplate(w http.ResponseWriter, user string) error {
 }
 
 func formFile(r *Request) (multipart.File, error) {
-  _, header, err := r.FormFile("TheFile")
-  return header, err
+	_, header, err := r.FormFile("TheFile")
+	return header, err
 }
 
 func Upload(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
 		header, error := formFile(r)
-    if err != nil {
-      log.Println("[webserver] " + err.Error())
-      http.Error(w, err.Error(), http.StatusInternalServerError)
-      return
-    }
+		if err != nil {
+			log.Println("[webserver] " + err.Error())
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
 
 		file, err := header.Open()
-    if err != nil {
-        log.Println("[webserver] " + err.Error())
-        http.Error(w, err.Error(), http.StatusInternalServerError)
-        return
-    }
+		if err != nil {
+			log.Println("[webserver] " + err.Error())
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
 		path := fmt.Sprintf("files/%s", header.Filename)
 		buf, err := ioutil.ReadAll(file)
-    if err != nil {
-        log.Println("[webserver] " + err.Error())
-        http.Error(w, err.Error(), http.StatusInternalServerError)
-        return
-    }
+		if err != nil {
+			log.Println("[webserver] " + err.Error())
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
 		ioutil.WriteFile(path, buf, 0644)
 
 		files, err := ioutil.ReadDir("./files")
-    if err != nil {
-      log.Println("[webserver] " + err.Error())
-      http.Error(w, err.Error(), http.StatusInternalServerError)
-      return
-    }
+		if err != nil {
+			log.Println("[webserver] " + err.Error())
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
 
 		for _, f := range files {
 			err = renderImgTemplate(w, f.Name(), size, size)
 			if err != nil {
 				log.Println("[webserver] " + err.Error())
 				http.Error(w, err.Error(), http.StatusInternalServerError)
-        return
+				return
 			}
 		}
 	}
@@ -96,22 +96,22 @@ func Resize(w http.ResponseWriter, r *http.Request) {
 		if size == "" {
 			log.Println("[webserver] " + "Empty FormValues")
 			http.Error(w, "Empty FormValue", http.StatusInternalServerError)
-      return
+			return
 		}
 
 		files, err := ioutil.ReadDir("./files")
-    if err != nil {
-      log.Println("[webserver] " + err.Error())
-      http.Error(w, err.Error(), http.StatusInternalServerError)
-      return
-    }
+		if err != nil {
+			log.Println("[webserver] " + err.Error())
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
 
 		for _, f := range files {
 			err := renderImgTemplate(w, f.Name(), size, size)
 			if err != nil {
-        log.Println("[webserver] " + err.Error())
+				log.Println("[webserver] " + err.Error())
 				http.Error(w, err.Error(), http.StatusInternalServerError)
-        return
+				return
 			}
 		}
 	}
